@@ -218,6 +218,7 @@ on post-fs-data
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq 384000
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq 384000
     write /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq 384000
+    write /dev/cpuctl/cpu.notify_on_migrate 1
 
 on property:sys.boot_completed=1
     # IO
