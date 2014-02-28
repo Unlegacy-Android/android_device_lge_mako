@@ -983,12 +983,11 @@ int32_t mm_camera_open(mm_camera_obj_t *my_obj,
 		ALOGV("%s:  ctrl_fd = %d", __func__, my_obj->ctrl_fd);
         ALOGV("Errno:%d",errno);
         if((my_obj->ctrl_fd > 0) || (errno != EIO) || (n_try <= 0 )) {
-			ALOGV("%s:  opened, break out while loop", __func__);
-
+            CDBG_HIGH("%s:  opened, break out while loop", __func__);
             break;
-		}
-        CDBG("%s:failed with I/O error retrying after %d milli-seconds",
-             __func__,sleep_msec);
+        }
+        CDBG_HIGH("%s: failed with I/O error retrying after %d milli-seconds",
+             __func__, sleep_msec);
         usleep(sleep_msec*1000);
     }while(n_try>0);
 
