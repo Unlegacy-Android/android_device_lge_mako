@@ -132,4 +132,6 @@ USE_DEVICE_SPECIFIC_QCOM_PROPRIETARY:= true
 
 HAVE_ADRENO_SOURCE:= false
 
+MALLOC_IMPL := dlmalloc
+
 -include vendor/lge/mako/BoardConfigVendor.mk
