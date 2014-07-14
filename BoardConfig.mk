@@ -130,4 +130,6 @@ OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
 
 HAVE_ADRENO_SOURCE:= false
 
+MALLOC_IMPL := dlmalloc
+
 -include vendor/lge/mako/BoardConfigVendor.mk
