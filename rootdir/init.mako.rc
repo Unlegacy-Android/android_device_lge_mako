@@ -256,7 +256,7 @@ on charger
 service rmt_storage /vendor/bin/rmt_storage
     class core
     user root
-    group system
+    group system wakelock
 
 service hciattach /system/bin/sh /system/etc/init.mako.bt.sh
     class late_start
@@ -292,7 +292,7 @@ service kickstart /vendor/bin/qcks -i /firmware/image/ -r /data/tombstones/mdm/
 
 service netmgrd /vendor/bin/netmgrd
     class main
-    group radio system
+    group radio system wakelock
 
 service sensors /vendor/bin/sensors.qcom
     class late_start
