@@ -270,12 +270,12 @@ service bridgemgrd /vendor/bin/bridgemgrd
 service qmuxd /vendor/bin/qmuxd
     class main
     user radio
-    group radio audio bluetooth gps
+    group radio audio bluetooth gps wakelock
 
 service kickstart /vendor/bin/qcks -i /firmware/image/ -r /data/tombstones/mdm/
     class core
     user system
-    group system
+    group system wakelock
     oneshot
 
 service netmgrd /vendor/bin/netmgrd
@@ -285,7 +285,7 @@ service netmgrd /vendor/bin/netmgrd
 service sensors /vendor/bin/sensors.qcom
     class late_start
     user root
-    group root radio system
+    group root radio system wakelock
 
 service wpa_supplicant /system/bin/wpa_supplicant \
     -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
