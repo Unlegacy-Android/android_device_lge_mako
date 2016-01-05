@@ -92,6 +92,6 @@ USE_DEVICE_SPECIFIC_CAMERA:= true
 
 OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
 
-MALLOC_IMPL := dlmalloc
+MALLOC_SVELTE := true
 
 -include vendor/lge/mako/BoardConfigVendor.mk
