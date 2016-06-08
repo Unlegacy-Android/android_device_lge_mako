@@ -26,6 +26,7 @@ PRODUCT_AAPT_PREF_CONFIG := xhdpi
 PRODUCT_PACKAGES := \
     libwpa_client \
     hostapd \
+    wificond \
     dhcpcd.conf \
     wpa_supplicant \
     wpa_supplicant.conf
