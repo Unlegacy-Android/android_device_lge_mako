@@ -22,6 +22,9 @@ on early-init
     mount debugfs debugfs /sys/kernel/debug
     chown system system /sys/kernel/debug/kgsl/proc
 
+    write /sys/block/mmcblk0/bdi/read_ahead_kb 512
+    write /sys/block/mmcblk0/queue/scheduler noop
+
 on init
     # Set permissions for persist partition
     mkdir /persist 0771 system system
@@ -213,6 +216,12 @@ on post-fs-data
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq 384000
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq 384000
     write /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq 384000
+
+on property:sys.boot_completed=1
+    # IO
+    write /sys/block/mmcblk0/queue/scheduler bfq
+    write /sys/block/mmcblk0/bdi/read_ahead_kb 256
+    write /sys/block/mmcblk0/queue/iosched/slice_idle 0
 
 on charger
     # Enable Power modes and set the CPU Freq Sampling rates
