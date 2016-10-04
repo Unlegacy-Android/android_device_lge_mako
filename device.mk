@@ -69,14 +69,14 @@ PRODUCT_COPY_FILES += \
 
 # Prebuilt kl and kcm keymaps
 PRODUCT_COPY_FILES += \
-	device/lge/mako/apq8064-tabla-snd-card_Button_Jack.kl:system/usr/keylayout/apq8064-tabla-snd-card_Button_Jack.kl \
-	device/lge/mako/hs_detect.kl:system/usr/keylayout/hs_detect.kl \
-	device/lge/mako/pmic8xxx_pwrkey.kl:system/usr/keylayout/pmic8xxx_pwrkey.kl \
-	device/lge/mako/keypad_8064.kl:system/usr/keylayout/keypad_8064.kl \
-	device/lge/mako/apq8064-tabla-snd-card_Button_Jack.kcm:system/usr/keychars/apq8064-tabla-snd-card_Button_Jack.kcm \
-	device/lge/mako/hs_detect.kcm:system/usr/keychars/hs_detect.kcm \
-	device/lge/mako/keypad_8064.kcm:system/usr/keychars/keypad_8064.kcm \
-	device/lge/mako/pmic8xxx_pwrkey.kcm:system/usr/keychars/pmic8xxx_pwrkey.kcm
+	device/lge/mako/keylayout/apq8064-tabla-snd-card_Button_Jack.kl:system/usr/keylayout/apq8064-tabla-snd-card_Button_Jack.kl \
+	device/lge/mako/keylayout/hs_detect.kl:system/usr/keylayout/hs_detect.kl \
+	device/lge/mako/keylayout/pmic8xxx_pwrkey.kl:system/usr/keylayout/pmic8xxx_pwrkey.kl \
+	device/lge/mako/keylayout/keypad_8064.kl:system/usr/keylayout/keypad_8064.kl \
+	device/lge/mako/keychars/apq8064-tabla-snd-card_Button_Jack.kcm:system/usr/keychars/apq8064-tabla-snd-card_Button_Jack.kcm \
+	device/lge/mako/keychars/hs_detect.kcm:system/usr/keychars/hs_detect.kcm \
+	device/lge/mako/keychars/keypad_8064.kcm:system/usr/keychars/keypad_8064.kcm \
+	device/lge/mako/keychars/pmic8xxx_pwrkey.kcm:system/usr/keychars/pmic8xxx_pwrkey.kcm
 
 # Prebuilt input device calibration files
 PRODUCT_COPY_FILES += \
