@@ -41,10 +41,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES +=  libstlport
 
 PRODUCT_COPY_FILES += \
-	device/lge/mako/WCNSS_cfg.dat:system/vendor/firmware/wlan/prima/WCNSS_cfg.dat \
-	device/lge/mako/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
-	device/lge/mako/WCNSS_qcom_wlan_nv.bin:system/etc/wifi/WCNSS_qcom_wlan_nv.bin \
-	device/lge/mako/init.mako.wifi.sh:system/etc/init.mako.wifi.sh
+	device/lge/mako/wifi/WCNSS_cfg.dat:system/vendor/firmware/wlan/prima/WCNSS_cfg.dat \
+	device/lge/mako/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
+	device/lge/mako/wifi/WCNSS_qcom_wlan_nv.bin:system/etc/wifi/WCNSS_qcom_wlan_nv.bin \
+	device/lge/mako/wifi/init.mako.wifi.sh:system/etc/init.mako.wifi.sh
 
 PRODUCT_COPY_FILES += \
 	device/lge/mako/audio_policy.conf:system/etc/audio_policy.conf
