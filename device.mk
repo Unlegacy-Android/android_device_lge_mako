@@ -53,7 +53,7 @@ PRODUCT_COPY_FILES += \
 	device/lge/mako/audio/mixer_paths.xml:system/etc/mixer_paths.xml
 
 PRODUCT_COPY_FILES += \
-	device/lge/mako/thermald-mako.conf:system/etc/thermald.conf
+	device/lge/mako/configs/thermald-mako.conf:system/etc/thermald.conf
 
 PRODUCT_COPY_FILES += \
 	device/lge/mako/rootdir/init.mako.rc:root/init.mako.rc \
@@ -80,7 +80,7 @@ PRODUCT_COPY_FILES += \
 
 # Prebuilt input device calibration files
 PRODUCT_COPY_FILES += \
-	device/lge/mako/touch_dev.idc:system/usr/idc/touch_dev.idc
+	device/lge/mako/configs/touch_dev.idc:system/usr/idc/touch_dev.idc
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
@@ -186,7 +186,7 @@ PRODUCT_PACKAGES += \
 
 # GPS configuration
 PRODUCT_COPY_FILES += \
-        device/lge/mako/gps.conf:system/etc/gps.conf
+        device/lge/mako/configs/gps.conf:system/etc/gps.conf
 
 # GPS
 PRODUCT_PACKAGES += \
