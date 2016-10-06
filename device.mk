@@ -56,6 +56,9 @@ PRODUCT_COPY_FILES += \
 	device/lge/mako/configs/thermald-mako.conf:system/etc/thermald.conf
 
 PRODUCT_COPY_FILES += \
+	device/lge/mako/configs/DxHDCP.cfg:system/etc/DxHDCP.cfg
+
+PRODUCT_COPY_FILES += \
 	device/lge/mako/rootdir/init.mako.rc:root/init.mako.rc \
 	device/lge/mako/rootdir/init.mako.usb.rc:root/init.mako.usb.rc \
 	device/lge/mako/rootdir/fstab.mako:root/fstab.mako \
