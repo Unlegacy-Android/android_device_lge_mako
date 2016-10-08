@@ -89,14 +89,14 @@ ifeq ($(USE_DEVICE_SPECIFIC_CAMERA),true)
       #LOCAL_CFLAGS+= -DCAMERA_SMOOTH_ZOOM
 
       ifeq ($(V4L2_BASED_LIBCAM),true)
-        LOCAL_C_INCLUDES+= hardware/qcom/media/mm-core/inc
+        LOCAL_C_INCLUDES+= hardware/qcom/media/msm8960/mm-core/inc
         LOCAL_C_INCLUDES+= $(LOCAL_PATH)/mm-camera-interface
       endif
 
       LOCAL_C_INCLUDES+= hardware/qcom/display/msm8960/libgralloc
       LOCAL_C_INCLUDES+= hardware/qcom/display/msm8960/libgenlock
       LOCAL_C_INCLUDES+= frameworks/native/include/media/hardware
-      LOCAL_C_INCLUDES+= hardware/qcom/media/libstagefrighthw
+      LOCAL_C_INCLUDES+= hardware/qcom/media/msm8960/libstagefrighthw
 
 
       ifeq ($(V4L2_BASED_LIBCAM),true)
