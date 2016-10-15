@@ -193,6 +193,7 @@ private:
   mm_camera_ch_data_buf_t          mRecordedFrames[MM_CAMERA_MAX_NUM_FRAMES];
   //Mutex                            mRecordFreeQueueLock;
   //Vector<mm_camera_ch_data_buf_t>  mRecordFreeQueue;
+  native_handle_t *mNativeHandle[MM_CAMERA_MAX_NUM_FRAMES];
 
   int mJpegMaxSize;
   QCameraStream *mStreamSnap;
