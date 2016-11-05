@@ -93,4 +93,6 @@ USE_DEVICE_SPECIFIC_CAMERA:= true
 
 OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
 
+TARGET_NEEDS_PLATFORM_TEXTRELS := true
+
 -include vendor/lge/mako/BoardConfigVendor.mk
