@@ -979,21 +979,21 @@ int32_t mm_camera_open(mm_camera_obj_t *my_obj,
 
     do{
         n_try--;
-        my_obj->ctrl_fd = open(dev_name,O_RDWR | O_NONBLOCK);
-		ALOGV("%s:  ctrl_fd = %d", __func__, my_obj->ctrl_fd);
-        ALOGV("Errno:%d",errno);
-        if((my_obj->ctrl_fd > 0) || (errno != EIO) || (n_try <= 0 )) {
+        errno = 0;
+        my_obj->ctrl_fd = open(dev_name, O_RDWR | O_NONBLOCK);
+        CDBG("%s:  ctrl_fd = %d, errno == %d", __func__, my_obj->ctrl_fd, errno);
+        if((my_obj->ctrl_fd >= 0) || (errno != EIO && errno != ETIMEDOUT) || (n_try <= 0 )) {
             CDBG_HIGH("%s:  opened, break out while loop", __func__);
             break;
         }
-        CDBG_HIGH("%s: failed with I/O error retrying after %d milli-seconds",
-             __func__, sleep_msec);
-        usleep(sleep_msec*1000);
-    }while(n_try>0);
+        ALOGE("%s:Failed with %s error, retrying after %d milli-seconds",
+             __func__, strerror(errno), sleep_msec);
+        usleep(sleep_msec * 1000);
+    }while (n_try > 0);
 
 	ALOGV("%s:  after while loop", __func__);
     if (my_obj->ctrl_fd <= 0) {
-        CDBG("%s: cannot open control fd of '%s' Errno = %d\n",
+        CDBG_ERROR("%s: cannot open control fd of '%s' Errno = %d\n",
                  __func__, mm_camera_util_get_dev_name(my_obj),errno);
         return -MM_CAMERA_E_GENERAL;
     }
