@@ -218,7 +218,8 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
 	keystore.msm8960 \
-	android.hardware.keymaster@3.0-impl
+	android.hardware.keymaster@3.0-impl \
+	android.hardware.keymaster@3.0-service
 
 PRODUCT_PACKAGES += \
 	android.hardware.power@1.0-service.qcom
