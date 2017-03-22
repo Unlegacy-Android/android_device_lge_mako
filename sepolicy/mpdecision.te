@@ -1,5 +1,5 @@
 # CPU governor (root process)
-type mpdecision, domain;
+type mpdecision, domain, domain_deprecated;
 type mpdecision_exec, exec_type, file_type;
 
 # DAC overrides
@@ -42,5 +42,6 @@ allow mpdecision sysfs:file w_file_perms;
 # /proc/PID/status file.
 r_dir_file(mpdecision, system_server)
 r_dir_file(mpdecision, mediaserver)
+r_dir_file(mpdecision, cameraserver)
 
 allow mpdecision self:capability sys_nice;

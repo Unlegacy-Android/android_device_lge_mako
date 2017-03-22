@@ -341,7 +341,7 @@ service thermald /vendor/bin/thermald
 service mpdecision /vendor/bin/mpdecision --no_sleep --avg_comp
     class main
     user root
-    group root system
+    group root readproc system
 
 service qcamerasvr /vendor/bin/mm-qcamera-daemon
     class late_start
