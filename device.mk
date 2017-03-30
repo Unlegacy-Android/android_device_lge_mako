@@ -188,6 +188,9 @@ PRODUCT_PACKAGES += \
 	libstagefrighthw \
 	libc2dcolorconvert
 
+PRODUCT_PROPERTY_OVERRIDES += \
+	persist.media.treble_omx=false
+
 # GPS configuration
 PRODUCT_COPY_FILES += \
         device/lge/mako/configs/gps.conf:system/etc/gps.conf
