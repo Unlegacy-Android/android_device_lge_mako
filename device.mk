@@ -119,6 +119,10 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml \
     device/lge/mako/nfc/libnfc-brcm.conf:system/etc/libnfc-brcm.conf
 
+# Bluetooth
+PRODUCT_PACKAGES += \
+	libbt-vendor
+
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.opengles.version=196608 \
 	debug.hwui.use_buffer_age=false
