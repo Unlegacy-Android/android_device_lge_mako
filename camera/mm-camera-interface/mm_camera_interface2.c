@@ -36,6 +36,8 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <fcntl.h>
 #include <stddef.h>
 #include <poll.h>
+#include <stdlib.h>
+#include <string.h>
 #include <linux/media.h>
 
 #include "mm_camera_interface2.h"
@@ -50,25 +52,6 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 static pthread_mutex_t g_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 static mm_camera_ctrl_t g_cam_ctrl;
-
-static int mm_camera_util_opcode_2_ch_type(mm_camera_obj_t *my_obj,
-                                        mm_camera_ops_type_t opcode)
-{
-    switch(opcode) {
-    case MM_CAMERA_OPS_PREVIEW:
-        return MM_CAMERA_CH_PREVIEW;
-    case MM_CAMERA_OPS_ZSL:
-    case MM_CAMERA_OPS_SNAPSHOT:
-        return MM_CAMERA_CH_SNAPSHOT;
-    case MM_CAMERA_OPS_PREPARE_SNAPSHOT:
-        return MM_CAMERA_CH_SNAPSHOT;
-    case MM_CAMERA_OPS_RAW:
-        return MM_CAMERA_CH_RAW;
-    default:
-        break;
-    }
-    return -1;
-}
 
 const char *mm_camera_util_get_dev_name(mm_camera_obj_t * my_obj)
 {
@@ -105,8 +88,7 @@ static uint8_t mm_camera_cfg_is_parm_supported (mm_camera_t * camera,
 }
 
 /* check if the channel is supported */
-static uint8_t mm_camera_cfg_is_ch_supported (mm_camera_t * camera,
-                                  mm_camera_channel_type_t ch_type)
+static uint8_t mm_camera_cfg_is_ch_supported(mm_camera_channel_type_t ch_type)
 {
     switch(ch_type) {
     case MM_CAMERA_CH_PREVIEW:
@@ -471,8 +453,7 @@ static mm_camera_ops_t mm_camera_ops = {
     .sendmsg = mm_camera_ops_sendmsg
 };
 
-static uint8_t mm_camera_notify_is_event_supported(mm_camera_t * camera,
-                                mm_camera_event_type_t evt_type)
+static uint8_t mm_camera_notify_is_event_supported(mm_camera_event_type_t evt_type)
 {
   switch(evt_type) {
   case MM_CAMERA_EVT_TYPE_CH:
@@ -520,7 +501,7 @@ static int32_t mm_camera_register_buf_notify (
 
     reg.cb = buf_cb;
     reg.user_data = user_data;
-    reg.cb_type=cb_type;
+    reg.cb_type = (mm_camera_buf_cb_type_t) cb_type;
     reg.cb_count=cb_count;
     pthread_mutex_lock(&g_mutex);
     my_obj = g_cam_ctrl.cam_obj[camera->camera_info.camera_id];
@@ -554,42 +535,6 @@ static mm_camera_notify_t mm_camera_notify = {
     .buf_done = mm_camera_buf_done
 };
 
-static uint8_t mm_camera_jpeg_is_jpeg_supported (mm_camera_t * camera)
-{
-    return FALSE;
-}
-static int32_t mm_camera_jpeg_set_parm (mm_camera_t * camera,
-                    mm_camera_jpeg_parm_type_t parm_type,
-                    void* p_value)
-{
-    return -1;
-}
-static int32_t mm_camera_jpeg_get_parm (mm_camera_t * camera,
-                    mm_camera_jpeg_parm_type_t parm_type,
-                    void* p_value)
-{
-    return -1;
-}
-static int32_t mm_camera_jpeg_register_event_cb(mm_camera_t * camera,
-                    mm_camera_jpeg_cb_t * evt_cb,
-                    void * user_data)
-{
-    return -1;
-}
-static int32_t mm_camera_jpeg_encode (mm_camera_t * camera, uint8_t start,
-                    mm_camera_jpeg_encode_t *data)
-{
-    return -1;
-}
-
-static mm_camera_jpeg_t mm_camera_jpeg =  {
-    .is_jpeg_supported = mm_camera_jpeg_is_jpeg_supported,
-    .set_parm = mm_camera_jpeg_set_parm,
-    .get_parm = mm_camera_jpeg_get_parm,
-    .register_event_cb = mm_camera_jpeg_register_event_cb,
-    .encode = mm_camera_jpeg_encode,
-};
-
 extern mm_camera_t * mm_camera_query (uint8_t *num_cameras)
 {
     int i = 0, rc = MM_CAMERA_OK;
@@ -617,7 +562,7 @@ extern mm_camera_t * mm_camera_query (uint8_t *num_cameras)
         break;
       }
 
-      if(strncmp(mdev_info.model, QCAMERA_NAME, sizeof(mdev_info.model) != 0)) {
+      if(strncmp(mdev_info.model, QCAMERA_NAME, sizeof(mdev_info.model)) != 0) {
         close(dev_fd);
         continue;
       }
@@ -677,7 +622,6 @@ extern mm_camera_t * mm_camera_query (uint8_t *num_cameras)
       g_cam_ctrl.camera[*num_cameras].cfg = &mm_camera_cfg;
       g_cam_ctrl.camera[*num_cameras].ops = &mm_camera_ops;
       g_cam_ctrl.camera[*num_cameras].evt = &mm_camera_notify;
-      g_cam_ctrl.camera[*num_cameras].jpeg_ops = NULL;
 
       CDBG("%s: dev_info[id=%d,name='%s',pos=%d,modes=0x%x,sensor=%d]\n",
         __func__, *num_cameras,
@@ -735,10 +679,9 @@ uint8_t cam_config_is_ch_supported(
   uint8_t rc = 0;
   mm_camera_t * mm_cam = get_camera_by_id(cam_id);
   if (mm_cam) {
-    rc = mm_cam->cfg->is_ch_supported(mm_cam, ch_type);
+    rc = mm_cam->cfg->is_ch_supported(ch_type);
   }
   return rc;
-
 }
 
 /* set a parm’s current value */
@@ -893,7 +836,7 @@ uint8_t cam_evt_is_event_supported(int cam_id, mm_camera_event_type_t evt_type)
   uint8_t rc = 0;
   mm_camera_t * mm_cam = get_camera_by_id(cam_id);
   if (mm_cam) {
-    rc = mm_cam->evt->is_event_supported(mm_cam, evt_type);
+    rc = mm_cam->evt->is_event_supported(evt_type);
   }
   return rc;
 }
@@ -938,57 +881,3 @@ int32_t cam_evt_buf_done(int cam_id, mm_camera_ch_data_buf_t *bufs)
   }
   return rc;
 }
-
-/*camera JPEG methods*/
-uint8_t cam_jpeg_is_jpeg_supported(int cam_id)
-{
-  uint8_t rc = 0;
-  mm_camera_t * mm_cam = get_camera_by_id(cam_id);
-  if (mm_cam) {
-    rc = mm_cam->jpeg_ops->is_jpeg_supported(mm_cam);
-  }
-  return rc;
-}
-
-int32_t cam_jpeg_set_parm(int cam_id, mm_camera_jpeg_parm_type_t parm_type,
-  void* p_value)
-{
-  int32_t rc = -1;
-  mm_camera_t * mm_cam = get_camera_by_id(cam_id);
-  if (mm_cam) {
-    rc = mm_cam->jpeg_ops->set_parm(mm_cam, parm_type, p_value);
-  }
-  return rc;
-}
-
-int32_t cam_jpeg_get_parm(int cam_id, mm_camera_jpeg_parm_type_t parm_type,
-  void* p_value)
-{
-  int32_t rc = -1;
-  mm_camera_t * mm_cam = get_camera_by_id(cam_id);
-  if (mm_cam) {
-    rc = mm_cam->jpeg_ops->get_parm(mm_cam, parm_type, p_value);
-  }
-  return rc;
-}
-int32_t cam_jpeg_register_event_cb(int cam_id, mm_camera_jpeg_cb_t * evt_cb,
-  void * user_data)
-{
-  int32_t rc = -1;
-  mm_camera_t * mm_cam = get_camera_by_id(cam_id);
-  if (mm_cam) {
-    rc = mm_cam->jpeg_ops->register_event_cb(mm_cam, evt_cb, user_data);
-  }
-  return rc;
-}
-int32_t cam_jpeg_encode(int cam_id, uint8_t start,
-  mm_camera_jpeg_encode_t *data)
-{
-  int32_t rc = -1;
-  mm_camera_t * mm_cam = get_camera_by_id(cam_id);
-  if (mm_cam) {
-    rc = mm_cam->jpeg_ops->encode(mm_cam, start, data);
-  }
-  return rc;
-}
-

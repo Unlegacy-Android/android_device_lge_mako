@@ -152,7 +152,6 @@ end:
 }
 
 static mm_camera_channel_type_t mm_camera_util_opcode_2_ch_type(
-                             mm_camera_obj_t *my_obj,
                              mm_camera_ops_type_t opcode)
 {
     mm_camera_channel_type_t type = MM_CAMERA_CH_MAX;
@@ -286,14 +285,6 @@ int32_t mm_camera_set_general_parm(mm_camera_obj_t * my_obj, mm_camera_parm_t *p
     case MM_CAMERA_PARM_FOCUS_MODE:
         return mm_camera_send_native_ctrl_cmd(my_obj,
                     CAMERA_SET_PARM_AF_MODE, sizeof(int32_t), (void *)parm->p_value);
-#if 0 //to be enabled later: @punits
-    case MM_CAMERA_PARM_AF_MTR_AREA:
-        return mm_camera_send_native_ctrl_cmd(my_obj,
-                    CAMERA_SET_PARM_AF_MTR_AREA, sizeof(af_mtr_area_t), (void *)parm->p_value);*/
-    case MM_CAMERA_PARM_AEC_MTR_AREA:
-        return mm_camera_send_native_ctrl_cmd(my_obj,
-                    CAMERA_SET_AEC_MTR_AREA, sizeof(aec_mtr_area_t), (void *)parm->p_value);
-#endif
     case MM_CAMERA_PARM_CAF_ENABLE:
         return mm_camera_send_native_ctrl_cmd(my_obj,
                     CAMERA_SET_PARM_CAF, sizeof(uint32_t), (void *)parm->p_value);
@@ -841,7 +832,7 @@ int32_t mm_camera_action_start(mm_camera_obj_t *my_obj,
     default:
         break;
     }
-    ch_type = mm_camera_util_opcode_2_ch_type(my_obj, opcode);
+    ch_type = mm_camera_util_opcode_2_ch_type(opcode);
     CDBG("%s:ch=%d,op_mode=%d,opcode=%d\n",
         __func__,ch_type,my_obj->op_mode,opcode);
     switch(my_obj->op_mode) {
@@ -889,7 +880,7 @@ int32_t mm_camera_action_start(mm_camera_obj_t *my_obj,
 }
 
 int32_t mm_camera_action_stop(mm_camera_obj_t *my_obj,
-    mm_camera_ops_type_t opcode, void *parm)
+    mm_camera_ops_type_t opcode)
 {
     int32_t rc = -MM_CAMERA_E_GENERAL;
     mm_camera_channel_type_t ch_type;
@@ -899,7 +890,7 @@ int32_t mm_camera_action_stop(mm_camera_obj_t *my_obj,
                                             CAMERA_AUTO_FOCUS_CANCEL, 0, NULL);
     }
 
-    ch_type = mm_camera_util_opcode_2_ch_type(my_obj, opcode);
+    ch_type = mm_camera_util_opcode_2_ch_type(opcode);
     switch(my_obj->op_mode) {
     case MM_CAMERA_OP_MODE_ZSL:
     case MM_CAMERA_OP_MODE_CAPTURE:
@@ -1102,7 +1093,7 @@ int32_t mm_camera_action(mm_camera_obj_t *my_obj, uint8_t start,
     int32_t rc = - MM_CAMERA_E_INVALID_OPERATION;
 
     if(start)   rc = mm_camera_action_start(my_obj, opcode, parm);
-    else rc = mm_camera_action_stop(my_obj, opcode, parm);
+    else rc = mm_camera_action_stop(my_obj, opcode);
     CDBG("%s:start_flag=%d,opcode=%d,parm=%p,rc=%d\n",__func__,start,opcode,parm, rc);
     return rc;
 }
