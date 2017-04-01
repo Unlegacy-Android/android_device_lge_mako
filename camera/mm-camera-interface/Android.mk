@@ -24,10 +24,6 @@ LOCAL_C_INCLUDES += \
     $(LOCAL_PATH)/../inc \
     hardware/qcom/media/msm8960/mm-core/inc
 
-LOCAL_CFLAGS += \
-    -include bionic/libc/include/sys/socket.h \
-    -include bionic/libc/include/sys/un.h
-
 LOCAL_MODULE := libmmcamera_interface2
 LOCAL_SHARED_LIBRARIES := libdl libcutils liblog
 
