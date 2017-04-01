@@ -1396,7 +1396,6 @@ status_t QCameraHardwareInterface::setParameters(const QCameraParameters& params
     if ((rc = setSkinToneEnhancement(params)))          final_rc = rc;
     if ((rc = setWaveletDenoise(params)))               final_rc = rc;
     if ((rc = setAntibanding(params)))                  final_rc = rc;
-    //    if ((rc = setOverlayFormats(params)))         final_rc = rc;
     if ((rc = setRedeyeReduction(params)))              final_rc = rc;
     if ((rc = setCaptureBurstExp()))                    final_rc = rc;
 
@@ -1413,7 +1412,6 @@ status_t QCameraHardwareInterface::setParameters(const QCameraParameters& params
     }
 
     if ((rc = setAEBracket(params)))              final_rc = rc;
-    //    if ((rc = setDenoise(params)))                final_rc = rc;
     if ((rc = setPreviewFpsRange(params)))              final_rc = rc;
     if((rc = setRecordingHint(params)))                 final_rc = rc;
     if ((rc = setNumOfSnapshot()))                      final_rc = rc;
@@ -1863,7 +1861,7 @@ status_t QCameraHardwareInterface::setFocusAreas(const QCameraParameters& params
         int num_areas_found=0;
         if(parseCameraAreaString(str, max_num_af_areas, areas, &num_areas_found) < 0) {
             ALOGE("%s: Failed to parse the string: %s", __func__, str);
-            delete areas;
+            delete[] areas;
             return BAD_VALUE;
         }
         for(int i=0; i<num_areas_found; i++) {
@@ -1872,7 +1870,7 @@ status_t QCameraHardwareInterface::setFocusAreas(const QCameraParameters& params
         }
         if(validateCameraAreas(areas, num_areas_found) == false) {
             ALOGE("%s: invalid areas specified : %s", __func__, str);
-            delete areas;
+            delete[] areas;
             return BAD_VALUE;
         }
         mParameters.set(QCameraParameters::KEY_FOCUS_AREAS, str);
@@ -1881,7 +1879,7 @@ status_t QCameraHardwareInterface::setFocusAreas(const QCameraParameters& params
         //if the native_set_parms is called when preview is not started, it
         //crashes in lower layer, so return of preview is not started
         if(mPreviewState == QCAMERA_HAL_PREVIEW_STOPPED) {
-            delete areas;
+            delete[] areas;
             return NO_ERROR;
         }
 
@@ -1916,7 +1914,7 @@ status_t QCameraHardwareInterface::setFocusAreas(const QCameraParameters& params
             rc = NO_ERROR;
         else
             rc = BAD_VALUE;
-        delete areas;
+        delete[] areas;
 #endif
 #if 0   //better solution with multi-roi, to be enabled later
         af_mtr_area_t afArea;
@@ -1969,7 +1967,7 @@ status_t QCameraHardwareInterface::setMeteringAreas(const QCameraParameters& par
         int num_areas_found=0;
         if(parseCameraAreaString(str, max_num_mtr_areas, areas, &num_areas_found) < 0) {
             ALOGE("%s: Failed to parse the string: %s", __func__, str);
-            delete areas;
+            delete[] areas;
             return BAD_VALUE;
         }
         for(int i=0; i<num_areas_found; i++) {
@@ -1978,7 +1976,7 @@ status_t QCameraHardwareInterface::setMeteringAreas(const QCameraParameters& par
         }
         if(validateCameraAreas(areas, num_areas_found) == false) {
             ALOGE("%s: invalid areas specified : %s", __func__, str);
-            delete areas;
+            delete[] areas;
             return BAD_VALUE;
         }
         mParameters.set(QCameraParameters::KEY_METERING_AREAS, str);
@@ -1986,7 +1984,7 @@ status_t QCameraHardwareInterface::setMeteringAreas(const QCameraParameters& par
         //if the native_set_parms is called when preview is not started, it
         //crashes in lower layer, so return of preview is not started
         if(mPreviewState == QCAMERA_HAL_PREVIEW_STOPPED) {
-            delete areas;
+            delete[] areas;
             return NO_ERROR;
         }
 
@@ -2008,7 +2006,7 @@ status_t QCameraHardwareInterface::setMeteringAreas(const QCameraParameters& par
         y1 = (uint16_t)((areas[0].y1 + 1000.0f)*(previewHeight/2000.0f));
         x2 = (uint16_t)((areas[0].x2 + 1000.0f)*(previewWidth/2000.0f));
         y2 = (uint16_t)((areas[0].y2 + 1000.0f)*(previewHeight/2000.0f));
-        delete areas;
+        delete[] areas;
 
         if(num_areas_found == 1) {
             aec_roi_value.aec_roi_enable = AEC_ROI_ON;
@@ -3003,16 +3001,6 @@ status_t QCameraHardwareInterface::setAecAwbLock(const QCameraParameters & param
     return rc;
 }
 
-status_t QCameraHardwareInterface::setOverlayFormats(const QCameraParameters& params)
-{
-    mParameters.set("overlay-format", HAL_PIXEL_FORMAT_YCbCr_420_SP);
-    if(mIs3DModeOn == true) {
-       int ovFormat = HAL_PIXEL_FORMAT_YCrCb_420_SP|HAL_3D_IN_SIDE_BY_SIDE_L_R|HAL_3D_OUT_SIDE_BY_SIDE;
-        mParameters.set("overlay-format", ovFormat);
-    }
-    return NO_ERROR;
-}
-
 status_t QCameraHardwareInterface::setMCEValue(const QCameraParameters& params)
 {
     ALOGV("%s",__func__);
@@ -3372,31 +3360,6 @@ status_t QCameraHardwareInterface::setRotation(const QCameraParameters& params)
     return rc;
 }
 
-status_t QCameraHardwareInterface::setDenoise(const QCameraParameters& params)
-{
-#if 0
-    if(!mCfgControl.mm_camera_is_supported(MM_CAMERA_PARM_WAVELET_DENOISE)) {
-        ALOGE("Wavelet Denoise is not supported for this sensor");
-        return NO_ERROR;
-    }
-    const char *str = params.get(QCameraParameters::KEY_DENOISE);
-    if (str != NULL) {
-        int value = attr_lookup(denoise,
-        sizeof(denoise) / sizeof(str_map), str);
-        if ((value != NOT_FOUND) &&  (mDenoiseValue != value)) {
-        mDenoiseValue =  value;
-        mParameters.set(QCameraParameters::KEY_DENOISE, str);
-        bool ret = native_set_parms(MM_CAMERA_PARM_WAVELET_DENOISE, sizeof(value),
-                                               (void *)&value);
-        return ret ? NO_ERROR : UNKNOWN_ERROR;
-        }
-        return NO_ERROR;
-    }
-    ALOGE("Invalid Denoise value: %s", (str == NULL) ? "NULL" : str);
-#endif
-    return BAD_VALUE;
-}
-
 status_t QCameraHardwareInterface::setOrientation(const QCameraParameters& params)
 {
     const char *str = params.get("orientation");
@@ -3507,8 +3470,7 @@ status_t QCameraHardwareInterface::setFullLiveshot()
 }
 
 
-isp3a_af_mode_t QCameraHardwareInterface::getAutoFocusMode(
-  const QCameraParameters& params)
+isp3a_af_mode_t QCameraHardwareInterface::getAutoFocusMode()
 {
   isp3a_af_mode_t afMode = AF_MODE_MAX;
   afMode = (isp3a_af_mode_t)mFocusMode;
@@ -4177,7 +4139,7 @@ void QCameraHardwareInterface::setExifTags()
         temp.num = 1;
         temp.denom = temp2;
         memcpy(&mExifValues.exposure_time, &temp, sizeof(mExifValues.exposure_time));
-        ALOGV(" The exposure value is %f", temp2);
+        ALOGV(" The exposure value is %u", temp2);
     }
     //get time and date from system
     time_t rawtime;

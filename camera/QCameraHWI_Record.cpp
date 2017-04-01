@@ -309,7 +309,7 @@ void QCameraStream_record::release()
   (void)cam_evt_register_buf_notify(mCameraId, MM_CAMERA_CH_VIDEO,
                                             NULL,
                                             (mm_camera_register_buf_cb_type_t)NULL,
-                                            NULL,
+                                            0,
                                             NULL);
   mInit = false;
   ALOGV("%s: END", __func__);
@@ -330,7 +330,6 @@ status_t QCameraStream_record::processRecordFrame(void *data)
         debugShowVideoFPS();
     }
 
-    mHalCamCtrl->dumpFrameToFile(frame->video.video.frame, HAL_DUMP_FRM_VIDEO);
     mHalCamCtrl->mCallbackLock.lock();
     camera_data_timestamp_callback rcb = mHalCamCtrl->mDataCbTimestamp;
     void *rdata = mHalCamCtrl->mCallbackCookie;
