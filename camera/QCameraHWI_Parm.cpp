@@ -262,10 +262,15 @@ static const str_map whitebalance[] = {
 };
 
 static const str_map antibanding[] = {
-    { QCameraParameters::ANTIBANDING_OFF,  CAMERA_ANTIBANDING_OFF },
-    { QCameraParameters::ANTIBANDING_50HZ, CAMERA_ANTIBANDING_50HZ },
-    { QCameraParameters::ANTIBANDING_60HZ, CAMERA_ANTIBANDING_60HZ },
-    { QCameraParameters::ANTIBANDING_AUTO, CAMERA_ANTIBANDING_AUTO }
+    { QCameraParameters::ANTIBANDING_OFF,             CAMERA_ANTIBANDING_OFF },
+    { QCameraParameters::ANTIBANDING_50HZ,            CAMERA_ANTIBANDING_50HZ },
+    { QCameraParameters::ANTIBANDING_60HZ,            CAMERA_ANTIBANDING_60HZ },
+    { QCameraParameters::ANTIBANDING_AUTO,            CAMERA_ANTIBANDING_AUTO },
+    { QCameraParameters::AE_ANTIBANDING_MODE_OFF,     CAMERA_ANTIBANDING_OFF },
+    { QCameraParameters::AE_ANTIBANDING_MODE_50HZ,    CAMERA_ANTIBANDING_50HZ },
+    { QCameraParameters::AE_ANTIBANDING_MODE_50HZ_WA, CAMERA_ANTIBANDING_50HZ },
+    { QCameraParameters::AE_ANTIBANDING_MODE_60HZ,    CAMERA_ANTIBANDING_60HZ },
+    { QCameraParameters::AE_ANTIBANDING_MODE_AUTO,    CAMERA_ANTIBANDING_AUTO },
 };
 
 static const str_map frame_rate_modes[] = {
@@ -2425,6 +2430,7 @@ status_t QCameraHardwareInterface::setAntibanding(const QCameraParameters& param
        ALOGV("ANTIBANDING mode is not supported for this sensor");
        return NO_ERROR;
     }
+
     const char *str = params.get(QCameraParameters::KEY_ANTIBANDING);
     if (str != NULL) {
         int value = (camera_antibanding_type)attr_lookup(

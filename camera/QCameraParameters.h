@@ -221,6 +221,13 @@ public:
     static const char HDR_ENABLE[];
     static const char HDR_DISABLE[];
 
+    // Extra values for antibanding
+    static const char AE_ANTIBANDING_MODE_OFF[];
+    static const char AE_ANTIBANDING_MODE_50HZ[];
+    static const char AE_ANTIBANDING_MODE_50HZ_WA[];
+    static const char AE_ANTIBANDING_MODE_60HZ[];
+    static const char AE_ANTIBANDING_MODE_AUTO[];
+
    // Values for Redeye Reduction settings.
    // static const char REDEYE_REDUCTION_ENABLE[];
    // static const char REDEYE_REDUCTION_DISABLE[];
