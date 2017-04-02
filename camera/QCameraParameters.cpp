@@ -172,6 +172,13 @@ const char QCameraParameters::REDEYE_REDUCTION_DISABLE[] = "disable";
 const char QCameraParameters::HDR_ENABLE[] = "enable";
 const char QCameraParameters::HDR_DISABLE[] = "disable";
 
+// Extra values for antibanding
+const char QCameraParameters::AE_ANTIBANDING_MODE_OFF[] = "0";
+const char QCameraParameters::AE_ANTIBANDING_MODE_50HZ[] = "1";
+const char QCameraParameters::AE_ANTIBANDING_MODE_50HZ_WA[] = "true"; // bug?
+const char QCameraParameters::AE_ANTIBANDING_MODE_60HZ[] = "2";
+const char QCameraParameters::AE_ANTIBANDING_MODE_AUTO[] = "3";
+
 // Values for ZSL settings.
 const char QCameraParameters::ZSL_OFF[] = "off";
 const char QCameraParameters::ZSL_ON[] = "on";
