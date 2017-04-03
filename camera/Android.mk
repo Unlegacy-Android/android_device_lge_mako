@@ -11,6 +11,12 @@ ifeq ($(strip $(TARGET_USES_ION)), true)
     LOCAL_CFLAGS += -DUSE_ION
 endif
 
+# Starting from Android 7.0, camera and encoder are in separated processes.
+# Use NativeHandleSource instead of CameraSource for metadata.
+ifeq ($(TARGET_USES_MEDIA_EXTENSIONS),true)
+    LOCAL_CFLAGS += -DUSE_NATIVE_HANDLE_SOURCE
+endif
+
 LOCAL_CFLAGS += \
     -DCAMERA_ION_HEAP_ID=ION_IOMMU_HEAP_ID \
     -DCAMERA_ZSL_ION_HEAP_ID=ION_IOMMU_HEAP_ID \
