@@ -563,6 +563,7 @@ void QCameraStream_record::releaseRecordingFrame(const void *opaque)
                 ALOGE("%s : Buf Done Failed",__func__);
             media_metadata_buffer *packet = (media_metadata_buffer *)
                 mHalCamCtrl->mRecordingMemory.metadata_memory[cnt]->data;
+#ifdef HAL_CLOSE_NATIVE_HANDLES
             if (packet && packet->buffer_type == kMetadataBufferTypeNativeHandleSource) {
               native_handle_t *nh = const_cast<native_handle_t *>(packet->meta_handle);
               if (nh) {
@@ -570,6 +571,7 @@ void QCameraStream_record::releaseRecordingFrame(const void *opaque)
                 native_handle_delete(nh);
               }
             }
+#endif
             ALOGV("%s : END",__func__);
             return;
         }

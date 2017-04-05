@@ -30,6 +30,9 @@ LOCAL_CFLAGS += \
 # Uncomment below line to enable smooth zoom
 #LOCAL_CFLAGS += -DCAMERA_SMOOTH_ZOOM
 
+# Uncomment below line to close native handles on releaseRecordingFrame
+#LOCAL_CLAFGS += HAL_CLOSE_NATIVE_HANDLES
+
 LOCAL_SRC_FILES := \
     QCameraHAL.cpp \
     QCameraHWI.cpp \
