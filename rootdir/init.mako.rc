@@ -258,7 +258,7 @@ service rmt_storage /vendor/bin/rmt_storage
 service hciattach /system/bin/sh /system/etc/init.mako.bt.sh
     class late_start
     user bluetooth
-    group qcom_oncrpc bluetooth net_bt_admin system
+    group qcom_oncrpc bluetooth system
     seclabel u:r:bluetooth_loader:s0
     disabled
     oneshot
