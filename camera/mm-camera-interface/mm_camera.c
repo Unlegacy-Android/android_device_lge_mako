@@ -125,32 +125,6 @@ end:
     return rc;
 }
 
-static int32_t mm_camera_ctrl_set_toggle_afr (mm_camera_obj_t *my_obj) {
-    int rc = 0;
-    int value = 0;
-    if(0 != (rc =  mm_camera_util_g_ctrl(my_obj->ctrl_fd,
-            V4L2_CID_EXPOSURE_AUTO, &value))){
-        goto end;
-    }
-    /* V4L2_CID_EXPOSURE_AUTO needs to be AUTO or SHUTTER_PRIORITY */
-    if (value != V4L2_EXPOSURE_AUTO && value != V4L2_EXPOSURE_SHUTTER_PRIORITY) {
-    CDBG("%s: V4L2_CID_EXPOSURE_AUTO needs to be AUTO/SHUTTER_PRIORITY\n",
-        __func__);
-    return -1;
-  }
-    if(0 != (rc =  mm_camera_util_g_ctrl(my_obj->ctrl_fd,
-            V4L2_CID_EXPOSURE_AUTO_PRIORITY, &value))){
-        goto end;
-    }
-    value = !value;
-    if(0 != (rc =  mm_camera_util_s_ctrl(my_obj->ctrl_fd,
-            V4L2_CID_EXPOSURE_AUTO_PRIORITY, value))){
-        goto end;
-    }
-end:
-    return rc;
-}
-
 static mm_camera_channel_type_t mm_camera_util_opcode_2_ch_type(
                              mm_camera_ops_type_t opcode)
 {
@@ -448,7 +422,6 @@ int32_t mm_camera_set_parm(mm_camera_obj_t * my_obj,
     mm_camera_parm_t *parm)
 {
     int32_t rc = -1;
-    uint16_t len;
     CDBG("%s type =%d", __func__, parm->parm_type);
     switch(parm->parm_type) {
     case MM_CAMERA_PARM_OP_MODE:
