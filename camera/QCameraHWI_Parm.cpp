@@ -1372,8 +1372,6 @@ int QCameraHardwareInterface::setParameters(const char *parms)
  * invalid or not supported. */
 status_t QCameraHardwareInterface::setParameters(const QCameraParameters& params)
 {
-    status_t ret = NO_ERROR;
-
     ALOGV("%s: E", __func__);
 //    Mutex::Autolock l(&mLock);
     status_t rc, final_rc = NO_ERROR;
@@ -2111,7 +2109,6 @@ status_t QCameraHardwareInterface::setFocusMode(const QCameraParameters& params)
 
                 int cafSupport = false;
                 int caf_type=0;
-                const char *str_hdr = mParameters.get(QCameraParameters::KEY_SCENE_MODE);
                 if(!strcmp(str, QCameraParameters::FOCUS_MODE_CONTINUOUS_VIDEO) ||
                    !strcmp(str, QCameraParameters::FOCUS_MODE_CONTINUOUS_PICTURE)){
                     cafSupport = true;
@@ -2436,7 +2433,6 @@ status_t QCameraHardwareInterface::setAntibanding(const QCameraParameters& param
         int value = (camera_antibanding_type)attr_lookup(
           antibanding, sizeof(antibanding) / sizeof(str_map), str);
         if (value != NOT_FOUND) {
-            camera_antibanding_type temp = (camera_antibanding_type) value;
             ALOGV("Antibanding Value : %d",value);
             mParameters.set(QCameraParameters::KEY_ANTIBANDING, str);
             bool ret = native_set_parms(MM_CAMERA_PARM_ANTIBANDING,
@@ -2896,6 +2892,9 @@ status_t QCameraHardwareInterface::setPreviewFormat(const QCameraParameters& par
         }
         bool ret = native_set_parms(MM_CAMERA_PARM_PREVIEW_FORMAT, sizeof(cam_format_t),
                                    (void *)&mPreviewFormatInfo.mm_cam_format);
+        if (!ret)
+            ALOGE("%s: failed setting MM_CAMERA_PARM_PREVIEW_FORMAT",
+                __func__);
         mParameters.set(QCameraParameters::KEY_PREVIEW_FORMAT, str);
         mPreviewFormat = mPreviewFormatInfo.mm_cam_format;
         ALOGV("Setting preview format to %d, i =%d, num=%d, hal_format=%d",
@@ -3778,10 +3777,10 @@ status_t QCameraHardwareInterface::setHistogram(int histogram_en)
         /*Currently the Ashmem is multiplying the buffer size with total number
         of buffers and page aligning. This causes a crash in JNI as each buffer
         individually expected to be page aligned  */
+#if 0
         int page_size_minus_1 = getpagesize() - 1;
         int statSize = sizeof (camera_preview_histogram_info );
         int32_t mAlignedStatSize = ((statSize + page_size_minus_1) & (~page_size_minus_1));
-#if 0
         mStatHeap =
         new AshmemPool(mAlignedStatSize, 3, statSize, "stat");
         if (!mStatHeap->initialized()) {

@@ -246,7 +246,6 @@ int8_t mm_jpeg_encoder_get_buffer_offset(uint32_t width, uint32_t height,
     }
     *num_planes = 2;
     if (hw_encode ) {
-        int cbcr_offset = 0;
         uint32_t actual_size = width*height;
         uint32_t padded_size = width * CEILING16(height);
         *p_y_offset = 0;
@@ -287,7 +286,7 @@ int8_t omxJpegOpen()
         pthread_mutex_unlock(&jpege_mutex);
         return false;
     }
-    OMX_ERRORTYPE ret = (*pOMX_GetHandle)(&pHandle, "OMX.qcom.image.jpeg.encoder",
+    (*pOMX_GetHandle)(&pHandle, "OMX.qcom.image.jpeg.encoder",
       NULL, &callbacks);
     pthread_mutex_unlock(&jpege_mutex);
     return true;
@@ -439,7 +438,6 @@ int8_t omxJpegEncode(omx_jpeg_encode_params *encode_params)
     int size = 0;
     uint8_t num_planes;
     uint32_t planes[10];
-    int orientation;
     ALOGV("%s:E", __func__);
 
     inputPort = malloc(sizeof(OMX_PARAM_PORTDEFINITIONTYPE));

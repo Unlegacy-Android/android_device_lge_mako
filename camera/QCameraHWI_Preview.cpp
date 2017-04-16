@@ -40,7 +40,6 @@ static void preview_notify_cb(mm_camera_ch_data_buf_t *frame,
                                 void *user_data)
 {
   QCameraStream_preview *pme = (QCameraStream_preview *)user_data;
-  mm_camera_ch_data_buf_t *bufs_used = 0;
   ALOGV("%s: E", __func__);
   /* for peview data, there is no queue, so directly use*/
   if(pme==NULL) {
@@ -154,7 +153,6 @@ status_t QCameraStream_preview::getBufferFromSurface()
         goto end;
     }
 	for (int cnt = 0; cnt < mHalCamCtrl->mPreviewMemory.buffer_count; cnt++) {
-		int stride;
 		err = mPreviewWindow->dequeue_buffer(mPreviewWindow,
 										&mHalCamCtrl->mPreviewMemory.buffer_handle[cnt],
 										&mHalCamCtrl->mPreviewMemory.stride[cnt]);
@@ -253,7 +251,6 @@ end:
 
 status_t QCameraStream_preview::putBufferToSurface() {
     int err = 0;
-    status_t ret = NO_ERROR;
 
     ALOGV(" %s : E ", __FUNCTION__);
 
@@ -444,12 +441,8 @@ status_t QCameraStream_preview::initDisplayBuffers()
   status_t ret = NO_ERROR;
   int width = 0;  /* width of channel  */
   int height = 0; /* height of channel */
-  uint32_t frame_len = 0; /* frame planner length */
-  int buffer_num = 4, i; /* number of buffers for display */
-  const char *pmem_region;
   uint8_t num_planes = 0;
   uint32_t planes[VIDEO_MAX_PLANES];
-  void *vaddr = NULL;
   cam_ctrl_dimension_t dim;
 
   ALOGV("%s:BEGIN",__func__);
@@ -485,7 +478,7 @@ status_t QCameraStream_preview::initDisplayBuffers()
   this->mDisplayStreamBuf.num = mHalCamCtrl->mPreviewMemory.buffer_count;
   this->myMode=myMode; /*Need to assign this in constructor after translating from mask*/
   num_planes = dim.display_frame_offset.num_planes;
-  for(i =0; i< num_planes; i++) {
+  for(int i =0; i< num_planes; i++) {
      planes[i] = dim.display_frame_offset.mp[i].len;
   }
   this->mDisplayStreamBuf.frame_len = dim.display_frame_offset.frame_len;
@@ -624,7 +617,6 @@ status_t QCameraStream_preview::processPreviewFrameWithDisplay(
   }
   mHalCamCtrl->mCallbackLock.lock();
   camera_data_timestamp_callback rcb = mHalCamCtrl->mDataCbTimestamp;
-  void *rdata = mHalCamCtrl->mCallbackCookie;
   mHalCamCtrl->mCallbackLock.unlock();
   nsecs_t timeStamp = seconds_to_nanoseconds(frame->def.frame->ts.tv_sec) ;
   timeStamp += frame->def.frame->ts.tv_nsec;
@@ -919,8 +911,6 @@ status_t QCameraStream_preview::init() {
                                      MM_CAMERA_REG_BUF_CB_INFINITE,
                                      0,this);
   ALOGV("Debug : %s : cam_evt_register_buf_notify",__func__);
-  buffer_handle_t *buffer_handle = NULL;
-  int tmp_stride = 0;
   mInit = true;
   return ret;
 }
@@ -1050,7 +1040,7 @@ end:
   void QCameraStream_preview::release() {
 
     ALOGV("%s : BEGIN",__func__);
-    int ret=MM_CAMERA_OK,i;
+    int ret=MM_CAMERA_OK;
 
     if(!mInit)
     {

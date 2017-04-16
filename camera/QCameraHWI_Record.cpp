@@ -113,7 +113,6 @@ static void record_notify_cb(mm_camera_ch_data_buf_t *bufs_new,
                               void *user_data)
 {
   QCameraStream_record *pme = (QCameraStream_record *)user_data;
-  mm_camera_ch_data_buf_t *bufs_used = 0;
   ALOGV("%s: BEGIN", __func__);
 
   /*
@@ -346,7 +345,6 @@ status_t QCameraStream_record::processRecordFrame(void *data)
 
     mHalCamCtrl->mCallbackLock.lock();
     camera_data_timestamp_callback rcb = mHalCamCtrl->mDataCbTimestamp;
-    void *rdata = mHalCamCtrl->mCallbackCookie;
     mHalCamCtrl->mCallbackLock.unlock();
 
 	nsecs_t timeStamp = nsecs_t(frame->video.video.frame->ts.tv_sec)*1000000000LL + \
@@ -561,9 +559,9 @@ void QCameraStream_record::releaseRecordingFrame(const void *opaque)
             /* found the match */
             if(MM_CAMERA_OK != cam_evt_buf_done(mCameraId, &mRecordedFrames[cnt]))
                 ALOGE("%s : Buf Done Failed",__func__);
+#ifdef HAL_CLOSE_NATIVE_HANDLES
             media_metadata_buffer *packet = (media_metadata_buffer *)
                 mHalCamCtrl->mRecordingMemory.metadata_memory[cnt]->data;
-#ifdef HAL_CLOSE_NATIVE_HANDLES
             if (packet && packet->buffer_type == kMetadataBufferTypeNativeHandleSource) {
               native_handle_t *nh = const_cast<native_handle_t *>(packet->meta_handle);
               if (nh) {

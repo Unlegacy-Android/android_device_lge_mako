@@ -90,7 +90,6 @@ static int mm_app_dump_snapshot_frame(char *filename,
                                       const void *buffer,
                                       uint32_t len)
 {
-    char bufp[128];
     int file_fdp;
     int rc = 0;
 
@@ -273,7 +272,6 @@ void QCameraStream_Snapshot::receiveCompleteJpegPicture()
 {
     int msg_type = CAMERA_MSG_COMPRESSED_IMAGE;
     ALOGV("%s: E", __func__);
-    camera_memory_t *encodedMem = NULL;
     camera_data_callback jpg_data_cb = NULL;
     bool fail_cb_flag = false;
 
@@ -306,7 +304,7 @@ void QCameraStream_Snapshot::receiveCompleteJpegPicture()
         cam_evt_buf_done(mCameraId, mCurrentFrameEncoded);
     }
 
-end:
+//end:
     msg_type = CAMERA_MSG_COMPRESSED_IMAGE;
     if (mHalCamCtrl->mDataCb && (mHalCamCtrl->mMsgEnabled & msg_type)) {
         jpg_data_cb = mHalCamCtrl->mDataCb;
@@ -410,7 +408,6 @@ status_t QCameraStream_Snapshot::
 configSnapshotDimension(cam_ctrl_dimension_t* dim)
 {
     bool matching = true;
-    cam_format_t img_format;
     status_t ret = NO_ERROR;
     ALOGV("%s: E", __func__);
 
@@ -464,7 +461,7 @@ configSnapshotDimension(cam_ctrl_dimension_t* dim)
         dim->ui_thumbnail_width = mThumbnailWidth = mPostviewWidth;
     }
     #if 0
-    img_format = mHalCamCtrl->getPreviewFormat();
+    cam_format_t img_format = mHalCamCtrl->getPreviewFormat();
     if (img_format) {
         matching &= (img_format == dim->main_img_format);
         if (!matching) {
@@ -675,7 +672,6 @@ status_t QCameraStream_Snapshot::
 initRawSnapshotBuffers(cam_ctrl_dimension_t *dim, int num_of_buf)
 {
     status_t ret = NO_ERROR;
-    struct msm_frame *frame;
     uint32_t frame_len;
     uint8_t num_planes;
     uint32_t planes[VIDEO_MAX_PLANES];
@@ -779,7 +775,6 @@ status_t QCameraStream_Snapshot::
 initSnapshotBuffers(cam_ctrl_dimension_t *dim, int num_of_buf)
 {
     status_t ret = NO_ERROR;
-    struct msm_frame *frame;
     uint32_t frame_len, y_off, cbcr_off;
     uint8_t num_planes;
     uint32_t planes[VIDEO_MAX_PLANES];
@@ -950,8 +945,6 @@ end:
 
 void QCameraStream_Snapshot::deInitBuffer(void)
 {
-    mm_camera_channel_type_t ch_type;
-
     ALOGV("%s: E", __func__);
 
     if( getSnapshotState() == SNAPSHOT_STATE_UNINIT) {
@@ -1128,7 +1121,6 @@ status_t QCameraStream_Snapshot::initRawSnapshot(int num_of_snapshots)
 {
     status_t ret = NO_ERROR;
     cam_ctrl_dimension_t dim;
-    bool initSnapshot = false;
     mm_camera_op_mode_type_t op_mode;
 
     ALOGV("%s: E", __func__);
@@ -1244,7 +1236,6 @@ status_t QCameraStream_Snapshot::initZSLSnapshot(void)
 {
     status_t ret = NO_ERROR;
     cam_ctrl_dimension_t dim;
-    mm_camera_op_mode_type_t op_mode;
 
     ALOGV("%s: E", __func__);
 
@@ -1601,8 +1592,6 @@ encodeData(mm_camera_ch_data_buf_t* recvd_frame, bool enqueued)
     cam_point_t main_crop_offset;
     cam_point_t thumb_crop_offset;
     int width, height;
-    uint8_t *thumbnail_buf;
-    uint32_t thumbnail_fd;
     uint8_t hw_encode = true;
     int mNuberOfVFEOutputs = 0;
 
@@ -1843,11 +1832,8 @@ encodeDisplayAndSave(mm_camera_ch_data_buf_t* recvd_frame,
                      bool enqueued)
 {
     status_t ret = NO_ERROR;
-    struct msm_frame *postview_frame;
     struct ion_flush_data cache_inv_data;
     int ion_fd;
-    int buf_index = 0;
-    ssize_t offset_addr = 0;
     common_crop_t dummy_crop;
     /* send frame for encoding */
     ALOGV("%s: Send frame for encoding", __func__);
@@ -2155,7 +2141,6 @@ end:    mSnapshotDataCallingBack = 0;
 //-------------------------------------------------------------------
 void QCameraStream_Snapshot::handleError()
 {
-    mm_camera_channel_type_t ch_type;
     ALOGV("%s: E", __func__);
 
     /* Depending upon the state we'll have to
@@ -2328,7 +2313,6 @@ QCameraStream_Snapshot::~QCameraStream_Snapshot() {
 status_t QCameraStream_Snapshot::init()
 {
     status_t ret = NO_ERROR;
-    mm_camera_op_mode_type_t op_mode;
 
     ALOGV("%s: E", __func__);
     /* Check the state. If we have already started snapshot
@@ -2480,7 +2464,6 @@ void QCameraStream_Snapshot::stopPolling(void)
 
 void QCameraStream_Snapshot::stop(void)
 {
-    mm_camera_ops_type_t ops_type;
     status_t ret = NO_ERROR;
 
     ALOGV("%s: E", __func__);
@@ -2565,7 +2548,6 @@ void QCameraStream_Snapshot::stop(void)
 
 void QCameraStream_Snapshot::release()
 {
-    status_t ret = NO_ERROR;
     ALOGV("%s: E", __func__);
     //Mutex::Autolock l(&snapshotLock);
 
@@ -2731,13 +2713,12 @@ void QCameraStream_Snapshot::lauchNextWDenoiseFromQueue()
 
 status_t QCameraStream_Snapshot::doWaveletDenoise(mm_camera_ch_data_buf_t* frame)
 {
-    status_t ret = NO_ERROR;
-    cam_sock_packet_t packet;
-    cam_ctrl_dimension_t dim;
-
     ALOGV("%s: E", __func__);
 
     #if 0
+    status_t ret = NO_ERROR;
+    cam_ctrl_dimension_t dim;
+
     // get dim on the fly
     memset(&dim, 0, sizeof(cam_ctrl_dimension_t));
     ret = cam_config_get_parm(mCameraId, MM_CAMERA_PARM_DIMENSION, &dim);
