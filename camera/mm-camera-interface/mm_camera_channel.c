@@ -396,9 +396,11 @@ static int32_t mm_camera_ch_util_qbuf(mm_camera_obj_t *my_obj,
 {
     int32_t rc = -1;
     mm_camera_stream_t *stream;
+#ifdef USE_ION
     struct ion_flush_data cache_inv_data;
     struct ion_custom_data custom_data;
     int ion_fd;
+#endif
     struct msm_frame *cache_frame;
     struct msm_frame *cache_frame1 = NULL;
 
@@ -598,7 +600,7 @@ static int mm_camera_channel_skip_frames(mm_camera_frame_queue_t *mq,
 void mm_camera_dispatch_buffered_frames(mm_camera_obj_t *my_obj,
                                         mm_camera_channel_type_t ch_type)
 {
-    int mcnt, i, rc = MM_CAMERA_E_GENERAL, scnt;
+    int i, rc = MM_CAMERA_E_GENERAL;
     int num_of_req_frame = 0;
     int j;
     mm_camera_ch_data_buf_t data;

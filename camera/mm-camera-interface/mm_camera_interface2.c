@@ -109,7 +109,6 @@ static int32_t mm_camera_cfg_set_parm (mm_camera_t * camera,
                                        void *p_value)
 {
     int32_t rc = -MM_CAMERA_E_GENERAL;
-    uint32_t tmp;
     mm_camera_obj_t * my_obj = NULL;
     mm_camera_parm_t parm = {.parm_type = parm_type, .p_value = p_value};
 
@@ -130,7 +129,6 @@ static int32_t mm_camera_cfg_get_parm (mm_camera_t * camera,
                                        void* p_value)
 {
     int32_t rc = -MM_CAMERA_E_GENERAL;
-    uint32_t tmp;
     mm_camera_obj_t * my_obj = NULL;
     mm_camera_parm_t parm = {.parm_type = parm_type, .p_value = p_value};
 
@@ -149,7 +147,6 @@ static int32_t mm_camera_cfg_request_buf(mm_camera_t * camera,
                                          mm_camera_reg_buf_t *buf)
 {
     int32_t rc = -MM_CAMERA_E_GENERAL;
-    uint32_t tmp;
     mm_camera_obj_t * my_obj = NULL;
 
     pthread_mutex_lock(&g_mutex);
@@ -167,7 +164,6 @@ static int32_t mm_camera_cfg_prepare_buf(mm_camera_t * camera,
                                          mm_camera_reg_buf_t *buf)
 {
     int32_t rc = -MM_CAMERA_E_GENERAL;
-    uint32_t tmp;
     mm_camera_obj_t * my_obj = NULL;
 
     pthread_mutex_lock(&g_mutex);
@@ -184,7 +180,6 @@ static int32_t mm_camera_cfg_unprepare_buf(mm_camera_t * camera,
                                            mm_camera_channel_type_t ch_type)
 {
     int32_t rc = -MM_CAMERA_E_GENERAL;
-    uint32_t tmp;
     mm_camera_obj_t * my_obj = NULL;
 
     pthread_mutex_lock(&g_mutex);
@@ -337,7 +332,6 @@ end:
 static void mm_camera_ops_close (mm_camera_t * camera)
 {
     mm_camera_obj_t * my_obj;
-    int i;
     int8_t camera_id = camera->camera_info.camera_id;
 
     pthread_mutex_lock(&g_mutex);
@@ -473,7 +467,6 @@ static int32_t mm_camera_notify_register_event_cb(mm_camera_t * camera,
                                    mm_camera_event_type_t evt_type)
 {
   mm_camera_obj_t * my_obj = NULL;
-  mm_camera_buf_cb_t reg ;
   int rc = -1;
 
   pthread_mutex_lock(&g_mutex);
@@ -537,7 +530,7 @@ static mm_camera_notify_t mm_camera_notify = {
 
 extern mm_camera_t * mm_camera_query (uint8_t *num_cameras)
 {
-    int i = 0, rc = MM_CAMERA_OK;
+    int rc = MM_CAMERA_OK;
     int dev_fd = 0;
     struct media_device_info mdev_info;
     int num_media_devices = 0;
@@ -637,7 +630,7 @@ extern mm_camera_t * mm_camera_query (uint8_t *num_cameras)
     }
     *num_cameras = *num_cameras;
     g_cam_ctrl.num_cam = *num_cameras;
-end:
+
     /* unlock the mutex */
     pthread_mutex_unlock(&g_mutex);
     CDBG("%s: num_cameras=%d\n", __func__, g_cam_ctrl.num_cam);

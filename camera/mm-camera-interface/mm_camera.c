@@ -448,7 +448,6 @@ int32_t mm_camera_set_parm(mm_camera_obj_t * my_obj,
     mm_camera_parm_t *parm)
 {
     int32_t rc = -1;
-    uint16_t len;
     CDBG("%s type =%d", __func__, parm->parm_type);
     switch(parm->parm_type) {
     case MM_CAMERA_PARM_OP_MODE:

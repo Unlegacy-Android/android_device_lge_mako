@@ -383,8 +383,7 @@ static int mm_camera_util_set_op_mode(int fd, int opmode)
 
 int mm_camera_stream_qbuf(mm_camera_stream_t *stream, int idx)
 {
-  int32_t i, rc = MM_CAMERA_OK;
-  int *ret;
+  int32_t rc = MM_CAMERA_OK;
   struct v4l2_buffer buffer;
 
   memset(&buffer, 0, sizeof(buffer));
@@ -445,7 +444,6 @@ static int mm_camera_stream_util_reg_buf(mm_camera_obj_t * my_obj,
                       mm_camera_buf_def_t *vbuf)
 {
     int32_t i, rc = MM_CAMERA_OK, j;
-    int *ret;
     struct v4l2_requestbuffers bufreq;
     int image_type;
     uint8_t num_planes;
@@ -537,7 +535,7 @@ end:
 static int mm_camera_stream_util_unreg_buf(mm_camera_stream_t *stream)
 {
     struct v4l2_requestbuffers bufreq;
-    int32_t i, rc = MM_CAMERA_OK;
+    int32_t rc = MM_CAMERA_OK;
 
     bufreq.count = 0;
     bufreq.type  = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
@@ -730,7 +728,6 @@ static int32_t mm_camera_stream_fsm_reg(mm_camera_obj_t * my_obj __unused,
         {
             enum v4l2_buf_type buf_type;
             int i = 0;
-            mm_camera_frame_t *frame;
             if(stream->frame.qbuf == 0) {
                 CDBG("%s: queueing buffers during stream on", __func__);
                 for(i = 0; i < stream->frame.num_frame; i++) {

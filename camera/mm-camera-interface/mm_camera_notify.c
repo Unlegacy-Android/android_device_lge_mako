@@ -49,7 +49,6 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 static void mm_camera_read_raw_frame(mm_camera_obj_t * my_obj)
 {
-    int rc = 0;
     int idx;
     int i;
     int cnt = 0;
@@ -382,7 +381,6 @@ send_to_hal:
 
 static void mm_camera_read_preview_frame(mm_camera_obj_t * my_obj)
 {
-    int rc = 0;
     int idx;
     int i;
     int cnt = 0;
@@ -562,7 +560,6 @@ static void mm_camera_snapshot_send_snapshot_notify(mm_camera_obj_t * my_obj)
 
 static void mm_camera_read_snapshot_main_frame(mm_camera_obj_t * my_obj)
 {
-    int rc = 0;
     int idx;
     mm_camera_stream_t *stream;
     mm_camera_frame_queue_t *q;
@@ -618,9 +615,8 @@ static void mm_camera_read_snapshot_thumbnail_frame(mm_camera_obj_t * my_obj)
 
 static void mm_camera_read_video_frame(mm_camera_obj_t * my_obj)
 {
-    int idx, rc = 0;
+    int idx;
     mm_camera_stream_t *stream;
-    mm_camera_frame_queue_t *q;
     int i;
     int cnt = 0;
     mm_camera_buf_cb_t buf_cb[MM_CAMERA_BUF_CB_MAX];
