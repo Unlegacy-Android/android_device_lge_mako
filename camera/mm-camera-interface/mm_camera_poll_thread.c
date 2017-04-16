@@ -199,7 +199,6 @@ static void mm_camera_poll_proc_pipe(mm_camera_poll_thread_t *poll_cb)
 
 static int mm_camera_poll_ch_busy(mm_camera_obj_t * my_obj, int ch_type)
 {
-    int i;
     int used = 0;
     mm_camera_poll_thread_t *poll_cb = &my_obj->poll_threads[ch_type];
     pthread_mutex_lock(&poll_cb->mutex);
@@ -227,7 +226,6 @@ int32_t mm_camera_poll_dispatch_buffered_frames(mm_camera_obj_t * my_obj, int ch
 int mm_camera_poll_busy(mm_camera_obj_t * my_obj)
 {
     int i;
-    mm_camera_poll_thread_t *poll_cb;
     for(i = 0; i < (MM_CAMERA_POLL_THRAED_MAX - 1); i++) {
         if(mm_camera_poll_ch_busy(my_obj,  i) > 0)
           return 1;
@@ -282,8 +280,6 @@ static void *mm_camera_poll_fn(mm_camera_poll_thread_t *poll_cb)
 
 static void *mm_camera_poll_thread(void *data)
 {
-    int rc = 0;
-    int i;
     void *ret = NULL;
     mm_camera_poll_thread_t *poll_cb = data;
 

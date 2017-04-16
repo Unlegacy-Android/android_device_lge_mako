@@ -308,7 +308,6 @@ QCameraHardwareInterface(int cameraId, int mode)
 QCameraHardwareInterface::~QCameraHardwareInterface()
 {
     ALOGV("~QCameraHardwareInterface: E");
-    int result;
 
     switch(mPreviewState) {
     case QCAMERA_HAL_PREVIEW_STOPPED:
@@ -808,8 +807,6 @@ bool QCameraHardwareInterface::preview_parm_config (cam_ctrl_dimension_t* dim,
     bool matching = true;
     int display_width = 0;  /* width of display      */
     int display_height = 0; /* height of display */
-    uint16_t video_width = 0;  /* width of the video  */
-    uint16_t video_height = 0; /* height of the video */
 
     /* First check if the preview resolution is the same, if not, change it*/
     parm.getPreviewSize(&display_width,  &display_height);
@@ -905,7 +902,6 @@ status_t QCameraHardwareInterface::startPreview2()
     status_t ret = NO_ERROR;
 
     cam_ctrl_dimension_t dim;
-    mm_camera_dimension_t maxDim;
     bool initPreview = false;
 
     mPauseFramedispatch = false;
@@ -1078,7 +1074,6 @@ void QCameraHardwareInterface::stopPreview()
 void QCameraHardwareInterface::stopPreviewInternal()
 {
     ALOGV("stopPreviewInternal: E");
-    status_t ret = NO_ERROR;
 
     if(!mStreamDisplay) {
         ALOGE("mStreamDisplay is null");
@@ -1186,7 +1181,6 @@ void QCameraHardwareInterface::stopRecording()
 void QCameraHardwareInterface::stopRecordingInternal()
 {
     ALOGV("stopRecordingInternal: E");
-    status_t ret = NO_ERROR;
 
     if(!mStreamRecord) {
         ALOGE("mStreamRecord is null");
@@ -1423,9 +1417,6 @@ void liveshot_callback(mm_camera_ch_data_buf_t *recvd_frame,
                                 void *user_data)
 {
     QCameraHardwareInterface *pme = (QCameraHardwareInterface *)user_data;
-    cam_ctrl_dimension_t dim;
-    int mJpegMaxSize;
-    int mNuberOfVFEOutputs = 0;
     status_t ret;
     ALOGV("%s: E", __func__);
 
@@ -1707,7 +1698,6 @@ status_t QCameraHardwareInterface::autoFocus()
     ALOGV("autoFocus: mFlashCond = %d", mFlashCond);
     Mutex::Autolock lock(mLock);
     ALOGV("autoFocus: Got lock");
-    bool status = true;
     isp3a_af_mode_t afMode = getAutoFocusMode();
 
     Mutex::Autolock afLock(mAutofocusLock);
@@ -1748,7 +1738,6 @@ status_t QCameraHardwareInterface::autoFocus()
 status_t QCameraHardwareInterface::cancelAutoFocus()
 {
     ALOGV("cancelAutoFocus: E");
-    status_t ret = NO_ERROR;
     Mutex::Autolock lock(mLock);
 
 /**************************************************************

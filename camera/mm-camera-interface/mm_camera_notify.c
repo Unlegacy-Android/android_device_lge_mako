@@ -49,7 +49,6 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 static void mm_camera_read_raw_frame(mm_camera_obj_t * my_obj)
 {
-    int rc = 0;
     int idx;
     int i;
     int cnt = 0;
@@ -382,7 +381,6 @@ send_to_hal:
 
 static void mm_camera_read_preview_frame(mm_camera_obj_t * my_obj)
 {
-    int rc = 0;
     int idx;
     int i;
     int cnt = 0;
@@ -562,7 +560,6 @@ static void mm_camera_snapshot_send_snapshot_notify(mm_camera_obj_t * my_obj)
 
 static void mm_camera_read_snapshot_main_frame(mm_camera_obj_t * my_obj)
 {
-    int rc = 0;
     int idx;
     mm_camera_stream_t *stream;
     mm_camera_frame_queue_t *q;
@@ -618,9 +615,8 @@ static void mm_camera_read_snapshot_thumbnail_frame(mm_camera_obj_t * my_obj)
 
 static void mm_camera_read_video_frame(mm_camera_obj_t * my_obj)
 {
-    int idx, rc = 0;
+    int idx;
     mm_camera_stream_t *stream;
-    mm_camera_frame_queue_t *q;
     int i;
     int cnt = 0;
     mm_camera_buf_cb_t buf_cb[MM_CAMERA_BUF_CB_MAX];
@@ -678,71 +674,6 @@ static void mm_camera_read_video_frame(mm_camera_obj_t * my_obj)
     ALOGV("Video thread unlocked");
 }
 
-static void mm_camera_read_zsl_main_frame(mm_camera_obj_t * my_obj)
-{
-    int idx, rc = 0;
-    mm_camera_stream_t *stream;
-    mm_camera_frame_queue_t *q;
-    mm_camera_frame_t *frame;
-    int cnt, watermark;
-
-    q =   &my_obj->ch[MM_CAMERA_CH_SNAPSHOT].snapshot.main.frame.readyq;
-    stream = &my_obj->ch[MM_CAMERA_CH_SNAPSHOT].snapshot.main;
-    idx =  mm_camera_read_msm_frame(stream);
-    if (idx < 0)
-        return;
-
-    CDBG("%s: Enqueuing frame id: %d", __func__, idx);
-    mm_camera_stream_frame_enq(q, &stream->frame.frame[idx]);
-    cnt = mm_camera_stream_frame_get_q_cnt(q);
-    watermark = my_obj->ch[MM_CAMERA_CH_SNAPSHOT].buffering_frame.water_mark;
-
-    CDBG("%s: Watermark: %d Queue in a frame: %d", __func__, watermark, cnt);
-    if(watermark < cnt) {
-        /* water overflow, queue head back to kernel */
-        frame = mm_camera_stream_frame_deq(q);
-        if(frame) {
-            rc = mm_camera_stream_qbuf(stream, frame->idx);
-            if(rc < 0) {
-                CDBG("%s: mm_camera_stream_qbuf(idx=%d) err=%d\n",
-                     __func__, frame->idx, rc);
-                return;
-            }
-        }
-    }
-    mm_camera_check_pending_zsl_frames(my_obj, MM_CAMERA_CH_SNAPSHOT);
-}
-
-static void mm_camera_read_zsl_postview_frame(mm_camera_obj_t * my_obj)
-{
-    int idx, rc = 0;
-    mm_camera_stream_t *stream;
-    mm_camera_frame_queue_t *q;
-    mm_camera_frame_t *frame;
-    int cnt, watermark;
-    q = &my_obj->ch[MM_CAMERA_CH_SNAPSHOT].snapshot.thumbnail.frame.readyq;
-    stream = &my_obj->ch[MM_CAMERA_CH_SNAPSHOT].snapshot.thumbnail;
-    idx =  mm_camera_read_msm_frame(stream);
-    if (idx < 0)
-        return;
-    mm_camera_stream_frame_enq(q, &stream->frame.frame[idx]);
-    watermark = my_obj->ch[MM_CAMERA_CH_SNAPSHOT].buffering_frame.water_mark;
-    cnt = mm_camera_stream_frame_get_q_cnt(q);
-    if(watermark < cnt) {
-        /* water overflow, queue head back to kernel */
-        frame = mm_camera_stream_frame_deq(q);
-        if(frame) {
-            rc = mm_camera_stream_qbuf(stream, frame->idx);
-            if(rc < 0) {
-                CDBG("%s: mm_camera_stream_qbuf(idx=%d) err=%d\n",
-                     __func__, frame->idx, rc);
-                return;
-            }
-        }
-    }
-    mm_camera_check_pending_zsl_frames(my_obj, MM_CAMERA_CH_SNAPSHOT);
-}
-
 void mm_camera_msm_data_notify(mm_camera_obj_t * my_obj,
                                mm_camera_stream_type_t stream_type)
 {
@@ -764,23 +695,6 @@ void mm_camera_msm_data_notify(mm_camera_obj_t * my_obj,
         break;
     default:
         break;
-    }
-}
-
-static mm_camera_channel_type_t mm_camera_image_mode_to_ch(int image_mode)
-{
-    switch(image_mode) {
-    case MSM_V4L2_EXT_CAPTURE_MODE_PREVIEW:
-        return MM_CAMERA_CH_PREVIEW;
-    case MSM_V4L2_EXT_CAPTURE_MODE_MAIN:
-    case MSM_V4L2_EXT_CAPTURE_MODE_THUMBNAIL:
-        return MM_CAMERA_CH_SNAPSHOT;
-    case MSM_V4L2_EXT_CAPTURE_MODE_VIDEO:
-        return MM_CAMERA_CH_VIDEO;
-    case MSM_V4L2_EXT_CAPTURE_MODE_RAW:
-        return MM_CAMERA_CH_RAW;
-    default:
-        return MM_CAMERA_CH_MAX;
     }
 }
 
