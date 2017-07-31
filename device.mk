@@ -119,7 +119,8 @@ PRODUCT_COPY_FILES += \
     device/lge/mako/nfc/libnfc-brcm.conf:system/etc/libnfc-brcm.conf
 
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.opengles.version=196608
+	ro.opengles.version=196608 \
+	debug.hwui.use_buffer_age=false
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.sf.lcd_density=320
