@@ -26,8 +26,6 @@
 #include <genlock.h>
 #include <gralloc_priv.h>
 
-#define UNLIKELY(exp) __builtin_expect(!!(exp), 0)
-
 /* QCameraHWI_Preview class implementation goes here*/
 /* following code implement the preview mode's image capture & display logic of this class*/
 
