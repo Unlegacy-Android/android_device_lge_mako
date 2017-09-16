@@ -263,9 +263,17 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     media.aac_51_output_enabled=true
 
+# Sensors
+PRODUCT_PACKAGES += \
+	sensors.msm8960 \
+	android.hardware.sensors@1.0-impl
+
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.qc.sensors.wl_dis=true \
 	ro.qualcomm.sensors.smd=true
+
+PRODUCT_COPY_FILES += \
+	device/lge/mako/configs/sensors/_hals.conf:system/vendor/etc/sensors/_hals.conf
 
 # HIDL manifest
 PRODUCT_COPY_FILES += \
