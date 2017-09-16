@@ -24,6 +24,7 @@ DEVICE_PACKAGE_OVERLAYS := device/lge/mako/overlay
 PRODUCT_AAPT_PREF_CONFIG := xhdpi
 
 PRODUCT_PACKAGES := \
+    android.hardware.wifi@1.0-service \
     libwpa_client \
     hostapd \
     wificond \
@@ -31,8 +32,18 @@ PRODUCT_PACKAGES := \
     wpa_supplicant \
     wpa_supplicant.conf
 
+# Lights
 PRODUCT_PACKAGES += \
-	lights.msm8960
+	lights.msm8960 \
+	android.hardware.light@2.0-impl
+
+# Vibrator
+PRODUCT_PACKAGES += \
+	android.hardware.vibrator@1.0-impl
+
+# USB
+PRODUCT_PACKAGES += \
+	android.hardware.usb@1.0-service
 
 PRODUCT_PACKAGES += \
     charger_res_images
@@ -110,6 +121,7 @@ PRODUCT_COPY_FILES += \
 # NFC packages
 PRODUCT_PACKAGES += \
     nfc_nci.bcm2079x.default \
+    android.hardware.nfc@1.0-impl \
     NfcNci \
     Tag
 
@@ -121,6 +133,7 @@ PRODUCT_COPY_FILES += \
 
 # Bluetooth
 PRODUCT_PACKAGES += \
+	android.hardware.bluetooth@1.0-impl \
 	libbt-vendor
 
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -159,13 +172,19 @@ PRODUCT_PACKAGES += \
 	hwcomposer.msm8960 \
 	gralloc.msm8960 \
 	copybit.msm8960 \
-	memtrack.msm8960
+	memtrack.msm8960 \
+	android.hardware.graphics.allocator@2.0-impl \
+	android.hardware.graphics.composer@2.1-impl \
+	android.hardware.graphics.mapper@2.0-impl \
+	android.hardware.memtrack@1.0-impl
 
 PRODUCT_PACKAGES += \
 	audio.primary.msm8960 \
 	audio.a2dp.default \
 	audio.usb.default \
 	audio.r_submix.default \
+	android.hardware.audio@2.0-impl \
+	android.hardware.audio.effect@2.0-impl \
 	libaudio-resampler
 
 # Voice processing
@@ -182,7 +201,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
 	camera.mako \
 	libmmcamera_interface2 \
-	libmmcamera_interface
+	libmmcamera_interface \
+	android.hardware.camera.provider@2.4-impl \
+	camera.device@1.0-impl
 
 PRODUCT_PACKAGES += \
         libmm-omxcore \
@@ -205,7 +226,8 @@ PRODUCT_PACKAGES += \
         libloc_eng \
         libloc_core \
         libgps.utils \
-        gps.msm8960
+        gps.msm8960 \
+        android.hardware.gnss@1.0-impl
 
 PRODUCT_PACKAGES += \
 	bdAddrLoader \
@@ -213,14 +235,16 @@ PRODUCT_PACKAGES += \
 	conn_init
 
 PRODUCT_PACKAGES += \
-	keystore.msm8960
+	keystore.msm8960 \
+	android.hardware.keymaster@3.0-impl
 
 PRODUCT_PACKAGES += \
 	wpa_supplicant_overlay.conf \
 	p2p_supplicant_overlay.conf
 
 PRODUCT_PACKAGES += \
-	power.mako
+	power.mako \
+	android.hardware.power@1.0-impl
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 	rild.libpath=/vendor/lib/libril-qc-qmi-1.so
