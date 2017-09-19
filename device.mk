@@ -252,8 +252,12 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
 	telephony.lteOnCdmaDevice=0
 
+# DRM
 PRODUCT_PROPERTY_OVERRIDES += \
 	drm.service.enabled=true
+
+PRODUCT_PACKAGES += \
+	android.hardware.drm@1.0-impl
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	wifi.interface=wlan0 \
