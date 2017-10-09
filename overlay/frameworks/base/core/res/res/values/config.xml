@@ -263,4 +263,10 @@
     <integer name="config_multiuserMaximumUsers">4</integer>
     <!--  Whether Multiuser UI should be shown -->
     <bool name="config_enableMultiUserUI">true</bool>
+
+    <!-- The RadioAccessFamilies supported by the device.
+         Empty is viewed as "all".  Only used on devices which
+         don't support RIL_REQUEST_GET_RADIO_CAPABILITY
+         format is UMTS|LTE|... -->
+    <string translatable="false" name="config_radio_access_family">GSM | GPRS | EDGE | WCDMA</string>
 </resources>
