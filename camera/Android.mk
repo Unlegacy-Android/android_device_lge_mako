@@ -36,7 +36,6 @@ LOCAL_CFLAGS += \
 LOCAL_SRC_FILES := \
     QCameraHAL.cpp \
     QCameraHWI.cpp \
-    QCameraHWI_Display.cpp \
     QCameraHWI_Mem.cpp \
     QCameraHWI_Parm.cpp\
     QCameraHWI_Preview.cpp \
