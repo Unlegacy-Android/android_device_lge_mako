@@ -221,7 +221,7 @@ status_t QCameraStream_preview::getBufferFromSurface()
 #endif
 		mHalCamCtrl->mPreviewMemory.camera_memory[cnt] =
 		    mHalCamCtrl->mGetMemory(mHalCamCtrl->mPreviewMemory.private_buffer_handle[cnt]->fd,
-			mHalCamCtrl->mPreviewMemory.private_buffer_handle[cnt]->size, 1, (void *)this);
+			mHalCamCtrl->mPreviewMemory.private_buffer_handle[cnt]->size, 1, mHalCamCtrl->mCallbackCookie);
 		ALOGV("%s: idx = %d, fd = %d, size = %d, offset = %d", __func__,
             cnt, mHalCamCtrl->mPreviewMemory.private_buffer_handle[cnt]->fd,
         mHalCamCtrl->mPreviewMemory.private_buffer_handle[cnt]->size,
@@ -312,7 +312,7 @@ status_t QCameraStream_preview::putBufferToSurface() {
 
 void QCameraStream_preview::notifyROIEvent(fd_roi_t roi)
 {
-    camera_memory_t *data = mHalCamCtrl->mGetMemory(-1, 1, 1, NULL);
+    camera_memory_t *data = mHalCamCtrl->mGetMemory(-1, 1, 1, mHalCamCtrl->mCallbackCookie);
     switch (roi.type) {
     case FD_ROI_TYPE_HEADER:
         {

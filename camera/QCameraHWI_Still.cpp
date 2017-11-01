@@ -227,7 +227,7 @@ receiveJpegFragment(uint8_t *ptr, uint32_t size)
 void QCameraStream_Snapshot::jpegErrorHandler()
 {
     ALOGV("%s: E", __func__);
-    camera_memory_t *data = mHalCamCtrl->mGetMemory(-1, 1, 1, NULL);
+    camera_memory_t *data = mHalCamCtrl->mGetMemory(-1, 1, 1, mHalCamCtrl->mCallbackCookie);
     mStopCallbackLock.lock( );
     if(mCurrentFrameEncoded) {
         free(mCurrentFrameEncoded);
@@ -351,7 +351,7 @@ void QCameraStream_Snapshot::receiveCompleteJpegPicture()
     }
     if(!fail_cb_flag) {
         camera_memory_t *encodedMem = mHalCamCtrl->mGetMemory(
-            mHalCamCtrl->mJpegMemory.fd[0], mJpegOffset, 1, mHalCamCtrl);
+            mHalCamCtrl->mJpegMemory.fd[0], mJpegOffset, 1, mHalCamCtrl->mCallbackCookie);
         if (!encodedMem || !encodedMem->data) {
             ALOGE("%s: mGetMemory failed.\n", __func__);
         }

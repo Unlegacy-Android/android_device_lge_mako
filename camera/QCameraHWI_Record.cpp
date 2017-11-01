@@ -469,12 +469,12 @@ status_t QCameraStream_record::initEncodeBuffers()
 #endif
 		  mHalCamCtrl->mRecordingMemory.camera_memory[cnt] =
 		    mHalCamCtrl->mGetMemory(mHalCamCtrl->mRecordingMemory.fd[cnt],
-		    mHalCamCtrl->mRecordingMemory.size, 1, (void *)this);
+		    mHalCamCtrl->mRecordingMemory.size, 1, mHalCamCtrl->mCallbackCookie);
 
       if (mHalCamCtrl->mStoreMetaDataInFrame) {
         mHalCamCtrl->mRecordingMemory.metadata_memory[cnt] =
           mHalCamCtrl->mGetMemory(-1,
-          sizeof(media_metadata_buffer), 1, (void *)this);
+          sizeof(media_metadata_buffer), 1, mHalCamCtrl->mCallbackCookie);
         media_metadata_buffer *packet = (media_metadata_buffer *)
           mHalCamCtrl->mRecordingMemory.metadata_memory[cnt]->data;
         if (!mNativeHandle[cnt])
