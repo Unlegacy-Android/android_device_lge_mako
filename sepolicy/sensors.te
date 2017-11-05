@@ -19,7 +19,7 @@ dontaudit sensors self:capability dac_override;
 type_transition sensors apk_data_file:sock_file sensors_socket "sensor_ctl_socket";
 allow sensors sensors_socket:sock_file create_file_perms;
 # Trying to be restrictive with perms on apk_data_file
-allow sensors apk_data_file:dir { add_name write };
+allow sensors apk_data_file:dir { add_name search write };
 # Socket can be deleted. So might have to keep in order to work.
 allow sensors apk_data_file:dir remove_name;
 

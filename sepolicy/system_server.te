@@ -25,5 +25,6 @@ allow system_server radio_device:chr_file r_file_perms;
 allow system_server self:socket ioctl;
 allowxperm system_server self:socket ioctl msm_sock_ipc_ioctls;
 
-# Access /dev/graphics/fb0
+# Access /dev/graphics
 allow system_server graphics_device:chr_file rw_file_perms;
+allow system_server graphics_device:dir r_dir_perms;

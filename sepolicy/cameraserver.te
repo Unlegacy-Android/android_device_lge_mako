@@ -5,3 +5,6 @@ allow cameraserver sysfs:file r_file_perms;
 
 # for libmmjpeg
 allow cameraserver vendor_file:file execmod;
+
+# Allow reading /dev/graphics
+allow cameraserver graphics_device:dir r_dir_perms;
