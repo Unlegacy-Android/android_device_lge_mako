@@ -130,7 +130,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
     frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml \
-    device/lge/mako/nfc/libnfc-brcm.conf:system/etc/libnfc-brcm.conf
+    device/lge/mako/nfc/libnfc-brcm.conf:system/vendor/etc/libnfc-brcm.conf
 
 # Bluetooth
 PRODUCT_PACKAGES += \
