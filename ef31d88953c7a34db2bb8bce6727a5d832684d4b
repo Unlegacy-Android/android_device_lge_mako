@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06492489_1f20b72f",
+        "filename": "device.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2017-11-06T09:13:27Z",
+      "side": 1,
+      "message": "Might as well use true, to align with the rest ;-)",
+      "range": {
+        "startLine": 239,
+        "startChar": 17,
+        "endLine": 239,
+        "endChar": 18
+      },
+      "revId": "ef31d88953c7a34db2bb8bce6727a5d832684d4b",
+      "serverId": "d5e41ece-075f-43fb-b5a6-48951f3d7b1d",
+      "unresolved": false
+    }
+  ]
+}
