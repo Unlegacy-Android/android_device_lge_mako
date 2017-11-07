@@ -89,4 +89,6 @@ OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
 
 TARGET_NEEDS_PLATFORM_TEXTRELS := true
 
+TARGET_USES_64_BIT_BINDER := true
+
 -include vendor/lge/mako/BoardConfigVendor.mk
