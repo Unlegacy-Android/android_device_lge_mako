@@ -913,20 +913,18 @@ status_t QCameraHardwareInterface::startPreview2()
 
     const char *str = mParameters.get(QCameraParameters::KEY_SCENE_MODE);
 
-    if (mRecordingHint || mFlashCond || !strcmp(str, "hdr")) {
+    if (mCameraId == 1 || mRecordingHint || mFlashCond || !strcmp(str, "hdr")) {
         ALOGI("%s:Setting non-ZSL mode",__func__);
         mParameters.set(QCameraParameters::KEY_CAMERA_MODE, 0);
         myMode = (camera_mode_t)(myMode & ~CAMERA_ZSL_MODE);
-        mParameters.setPreviewFrameRateMode("frame-rate-auto");
-        setPreviewFrameRateMode(mParameters);
      } else {
         ALOGI("%s:Setting ZSL mode",__func__);
         mParameters.set(QCameraParameters::KEY_CAMERA_MODE, 1);
         myMode = (camera_mode_t)(myMode | CAMERA_ZSL_MODE);
-        mParameters.setPreviewFrameRateMode("frame-rate-auto");
-        setPreviewFrameRateMode(mParameters);
-
     }
+
+    mParameters.setPreviewFrameRateMode("frame-rate-auto");
+    setPreviewFrameRateMode(mParameters);
 
     /*  get existing preview information, by qury mm_camera*/
     memset(&dim, 0, sizeof(cam_ctrl_dimension_t));
