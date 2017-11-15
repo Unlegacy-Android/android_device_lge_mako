@@ -1,2 +1,0 @@
-# Allow reading /dev/graphics
-allow untrusted_app_25 graphics_device:dir r_dir_perms;
