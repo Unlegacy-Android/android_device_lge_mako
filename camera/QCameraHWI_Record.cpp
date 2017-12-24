@@ -336,7 +336,7 @@ status_t QCameraStream_record::processRecordFrame(void *data)
       return NO_ERROR;
     }
 
-    if (UNLIKELY(mDebugFps)) {
+    if (mDebugFps) {
         debugShowVideoFPS();
     }
 

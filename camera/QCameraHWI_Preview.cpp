@@ -624,7 +624,7 @@ status_t QCameraStream_preview::processPreviewFrameWithDisplay(
   mFirstFrameRcvd = true;
   }
 
-  if (UNLIKELY(mHalCamCtrl->mDebugFps)) {
+  if (mHalCamCtrl->mDebugFps) {
       mHalCamCtrl->debugShowPreviewFPS();
   }
 
