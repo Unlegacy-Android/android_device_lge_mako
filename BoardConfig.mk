@@ -54,6 +54,7 @@ WIFI_DRIVER_FW_PATH_STA := "sta"
 WIFI_DRIVER_FW_PATH_AP  := "ap"
 
 TARGET_USES_ION := true
+TARGET_USES_HWC2 := true
 
 WITH_DEXPREOPT := false
 
