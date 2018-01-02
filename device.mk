@@ -214,6 +214,7 @@ PRODUCT_PACKAGES += \
 	libmmcamera_interface2 \
 	libmmcamera_interface \
 	android.hardware.camera.provider@2.4-impl \
+	android.hardware.camera.provider@2.4-service \
 	camera.device@1.0-impl
 
 PRODUCT_PACKAGES += \
