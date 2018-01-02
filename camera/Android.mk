@@ -53,6 +53,11 @@ LOCAL_C_INCLUDES += \
     hardware/qcom/media/msm8960/libstagefrighthw \
     frameworks/native/include/media/hardware
 
+# Kernel headers
+LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
+LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include/media
+LOCAL_ADDITIONAL_DEPENDENCIES := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
+
 LOCAL_SHARED_LIBRARIES := libutils libui libcamera_client libcamera_metadata liblog libcutils libbinder libnativewindow
 LOCAL_SHARED_LIBRARIES += libgenlock libmmcamera_interface2
 LOCAL_SHARED_LIBRARIES += android.hidl.token@1.0-utils android.hardware.graphics.bufferqueue@1.0

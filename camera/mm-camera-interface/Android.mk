@@ -24,6 +24,11 @@ LOCAL_C_INCLUDES += \
     $(LOCAL_PATH)/../inc \
     hardware/qcom/media/msm8960/mm-core/inc
 
+# Kernel headers
+LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
+LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include/media
+LOCAL_ADDITIONAL_DEPENDENCIES := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
+
 LOCAL_CFLAGS += -Wall -Werror
 
 LOCAL_MODULE := libmmcamera_interface2
