@@ -58,8 +58,15 @@ PRODUCT_COPY_FILES += \
 	device/lge/mako/wifi/WCNSS_qcom_wlan_nv.bin:system/etc/wifi/WCNSS_qcom_wlan_nv.bin \
 	device/lge/mako/wifi/init.mako.wifi.sh:system/etc/init.mako.wifi.sh
 
+# Audio configuration
+USE_XML_AUDIO_POLICY_CONF := 1
 PRODUCT_COPY_FILES += \
-	device/lge/mako/audio/audio_policy.conf:system/etc/audio_policy.conf
+	frameworks/av/services/audiopolicy/config/a2dp_audio_policy_configuration.xml:system/vendor/etc/a2dp_audio_policy_configuration.xml \
+	frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:system/vendor/etc/audio_policy_volumes.xml \
+	frameworks/av/services/audiopolicy/config/default_volume_tables.xml:system/vendor/etc/default_volume_tables.xml \
+	frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:system/vendor/etc/r_submix_audio_policy_configuration.xml \
+	frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:system/vendor/etc/usb_audio_policy_configuration.xml \
+	device/lge/mako/audio/audio_policy_configuration.xml:system/vendor/etc/audio_policy_configuration.xml
 
 PRODUCT_COPY_FILES += \
 	device/lge/mako/audio/mixer_paths.xml:system/etc/mixer_paths.xml
