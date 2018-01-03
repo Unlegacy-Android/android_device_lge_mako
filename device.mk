@@ -281,5 +281,4 @@ PRODUCT_COPY_FILES += \
 	device/lge/mako/configs/sensors/_hals.conf:system/vendor/etc/sensors/_hals.conf
 
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
-$(call inherit-product, hardware/qcom/msm8960/msm8960.mk)
 $(call inherit-product-if-exists, vendor/widevine/arm-generic/widevine-vendor.mk)
