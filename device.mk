@@ -82,7 +82,7 @@ PRODUCT_COPY_FILES += \
 	device/lge/mako/rootdir/init.mako.usb.rc:root/init.mako.usb.rc \
 	device/lge/mako/rootdir/fstab.mako:root/fstab.mako \
 	device/lge/mako/rootdir/ueventd.mako.rc:root/ueventd.mako.rc \
-	device/lge/mako/media/media_profiles.xml:system/etc/media_profiles.xml \
+	device/lge/mako/media/media_profiles_V1_0.xml:system/vendor/etc/media_profiles_V1_0.xml \
 	frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
 	frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
 	frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
@@ -222,9 +222,6 @@ PRODUCT_PACKAGES += \
 	libOmxCore \
 	libstagefrighthw \
 	libc2dcolorconvert
-
-PRODUCT_PROPERTY_OVERRIDES += \
-	persist.media.treble_omx=false
 
 # GPS configuration
 PRODUCT_COPY_FILES += \
