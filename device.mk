@@ -191,7 +191,7 @@ PRODUCT_PACKAGES += \
 # Voice processing
 PRODUCT_PACKAGES += libqcomvoiceprocessing
 PRODUCT_COPY_FILES += \
-    device/lge/mako/audio/audio_effects.conf:system/vendor/etc/audio_effects.conf
+    device/lge/mako/audio/audio_effects.xml:system/vendor/etc/audio_effects.xml
 
 PRODUCT_COPY_FILES += \
 	device/lge/mako/bluetooth/init.mako.bt.sh:system/etc/init.mako.bt.sh
