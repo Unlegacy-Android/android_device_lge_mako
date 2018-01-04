@@ -26,6 +26,7 @@ LOCAL_C_INCLUDES += \
 
 LOCAL_CFLAGS += -Wall -Werror
 
+LOCAL_PROPRIETARY_MODULE := true
 LOCAL_MODULE := libmmcamera_interface2
 LOCAL_SHARED_LIBRARIES := libdl libcutils liblog
 
