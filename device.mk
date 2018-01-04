@@ -204,7 +204,7 @@ PRODUCT_COPY_FILES += \
     device/lge/mako/audio/audio_effects.xml:system/vendor/etc/audio_effects.xml
 
 PRODUCT_COPY_FILES += \
-	device/lge/mako/bluetooth/init.mako.bt.sh:system/etc/init.mako.bt.sh
+	device/lge/mako/bluetooth/init.mako.bt.sh:system/vendor/etc/init.mako.bt.sh
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.qualcomm.bt.hci_transport=smd
