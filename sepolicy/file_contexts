@@ -110,7 +110,7 @@
 /system/vendor/bin/sensors\.qcom       u:object_r:sensors_exec:s0
 /system/vendor/bin/mm-qcamera-daemon   u:object_r:camera_exec:s0
 /system/vendor/bin/qseecomd            u:object_r:tee_exec:s0
-/system/bin/conn_init              u:object_r:conn_init_exec:s0
+/system/vendor/bin/conn_init           u:object_r:conn_init_exec:s0
 
 # Persist firmware filesystem
 /persist(/.*)?                   u:object_r:persist_file:s0
