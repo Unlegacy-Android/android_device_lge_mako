@@ -14,19 +14,15 @@
 # limitations under the License.
 #
 
-ifneq ($(filter mako occam,$(TARGET_DEVICE)),)
-
 LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
+
 LOCAL_SRC_FILES := addrloader.c
-LOCAL_C_INCLUDES := \
-	$(LOCAL_PATH) \
-	$(TARGET_OUT_HEADERS)/common/inc
 LOCAL_SHARED_LIBRARIES := libcutils liblog
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_OWNER := lge
 LOCAL_MODULE := bdAddrLoader
-include $(BUILD_EXECUTABLE)
+LOCAL_PROPRIETARY_MODULE := true
 
-endif
+include $(BUILD_EXECUTABLE)
