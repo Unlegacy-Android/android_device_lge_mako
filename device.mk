@@ -54,9 +54,11 @@ PRODUCT_PACKAGES +=  libstlport
 
 PRODUCT_COPY_FILES += \
 	device/lge/mako/wifi/WCNSS_cfg.dat:system/vendor/firmware/wlan/prima/WCNSS_cfg.dat \
-	device/lge/mako/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
-	device/lge/mako/wifi/WCNSS_qcom_wlan_nv.bin:system/etc/wifi/WCNSS_qcom_wlan_nv.bin \
-	device/lge/mako/wifi/init.mako.wifi.sh:system/etc/init.mako.wifi.sh
+	device/lge/mako/wifi/WCNSS_qcom_cfg.ini:system/vendor/etc/wifi/WCNSS_qcom_cfg.ini \
+	device/lge/mako/wifi/WCNSS_qcom_wlan_nv.bin:system/vendor/etc/wifi/WCNSS_qcom_wlan_nv.bin \
+	device/lge/mako/wifi/init.mako.wifi.sh:system/vendor/etc/init.mako.wifi.sh \
+	device/lge/mako/wifi/wpa_supplicant_overlay.conf:system/vendor/etc/wifi/wpa_supplicant_overlay.conf \
+	device/lge/mako/wifi/p2p_supplicant_overlay.conf:system/vendor/etc/wifi/p2p_supplicant_overlay.conf
 
 # Audio configuration
 USE_XML_AUDIO_POLICY_CONF := 1
@@ -243,10 +245,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	keystore.msm8960 \
 	android.hardware.keymaster@3.0-impl
-
-PRODUCT_PACKAGES += \
-	wpa_supplicant_overlay.conf \
-	p2p_supplicant_overlay.conf
 
 PRODUCT_PACKAGES += \
 	power.mako \
