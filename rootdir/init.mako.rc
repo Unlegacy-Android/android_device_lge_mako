@@ -334,7 +334,7 @@ service wcnss_init /system/bin/sh /system/etc/init.mako.wifi.sh
     seclabel u:r:conn_init:s0
     oneshot
 
-service bdAddrLoader /system/bin/bdAddrLoader -f /persist/bluetooth/.bdaddr -h -x
+service bdAddrLoader /vendor/bin/bdAddrLoader -f /persist/bluetooth/.bdaddr -h -x
     class main
     user bluetooth
     group system bluetooth
