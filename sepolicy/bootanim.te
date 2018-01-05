@@ -1,1 +1,1 @@
-allow bootanim sysfs_thermal:file r_file_perms;
+allow bootanim sysfs_graphics:file r_file_perms;

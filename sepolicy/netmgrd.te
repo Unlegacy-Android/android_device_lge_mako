@@ -22,7 +22,6 @@ allow netmgrd self:packet_socket create_socket_perms_no_ioctl;
 
 # set net.rmnet* properties.
 set_prop(netmgrd, radio_prop)
-auditallow netmgrd radio_prop:property_service set;
 set_prop(netmgrd, net_radio_prop)
 
 # Talk to qmuxd (qmux_radio)
@@ -35,10 +34,5 @@ allow netmgrd shell_exec:file rx_file_perms;
 # Runs /system/bin/ip addr flush dev <device> commands.
 allow netmgrd system_file:file rx_file_perms;
 
-# XXX Run toolbox.  Might not be needed.
-allow netmgrd toolbox_exec:file rx_file_perms;
-auditallow netmgrd toolbox_exec:file rx_file_perms;
-
 # Access to /proc/sys/net/*
-allow netmgrd proc_net:file r_file_perms;
-allow netmgrd proc_net:dir r_dir_perms;
+r_dir_file(netmgrd, proc_net)
