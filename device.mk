@@ -146,30 +146,6 @@ PRODUCT_PACKAGES += \
 	android.hardware.bluetooth@1.0-impl \
 	libbt-vendor
 
-PRODUCT_PROPERTY_OVERRIDES += \
-	ro.opengles.version=196608 \
-	debug.hwui.use_buffer_age=false
-
-PRODUCT_PROPERTY_OVERRIDES += \
-	ro.sf.lcd_density=320
-
-# Audio Configuration
-PRODUCT_PROPERTY_OVERRIDES += \
-	persist.audio.dualmic.config=endfire \
-	persist.audio.fluence.voicecall=true
-
-
-# Do not power down SIM card when modem is sent to Low Power Mode.
-PRODUCT_PROPERTY_OVERRIDES += \
-	persist.radio.apm_sim_not_pwdn=1
-
-# Ril sends only one RIL_UNSOL_CALL_RING, so set call_ring.multiple to false
-PRODUCT_PROPERTY_OVERRIDES += \
-	ro.telephony.call_ring.multiple=0
-
-#Upto 3 layers can go through overlays
-PRODUCT_PROPERTY_OVERRIDES += persist.hwc.mdpcomp.enable=true
-
 PRODUCT_CHARACTERISTICS := nosdcard
 
 # Filesystem management tools
@@ -205,9 +181,6 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
 	device/lge/mako/bluetooth/init.mako.bt.sh:system/vendor/etc/init.mako.bt.sh
-
-PRODUCT_PROPERTY_OVERRIDES += \
-	ro.qualcomm.bt.hci_transport=smd
 
 PRODUCT_PACKAGES += \
 	camera.mako \
@@ -251,35 +224,13 @@ PRODUCT_PACKAGES += \
 	power.mako \
 	android.hardware.power@1.0-impl
 
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-	rild.libpath=/vendor/lib/libril-qc-qmi-1.so
-
-PRODUCT_PROPERTY_OVERRIDES += \
-	telephony.lteOnCdmaDevice=0
-
-# DRM
-PRODUCT_PROPERTY_OVERRIDES += \
-	drm.service.enabled=true
-
 PRODUCT_PACKAGES += \
 	android.hardware.drm@1.0-impl
-
-PRODUCT_PROPERTY_OVERRIDES += \
-	wifi.interface=wlan0 \
-	wifi.supplicant_scan_interval=15
-
-# Enable AAC 5.1 output
-PRODUCT_PROPERTY_OVERRIDES += \
-    media.aac_51_output_enabled=true
 
 # Sensors
 PRODUCT_PACKAGES += \
 	sensors.msm8960 \
 	android.hardware.sensors@1.0-impl
-
-PRODUCT_PROPERTY_OVERRIDES += \
-	ro.qc.sensors.wl_dis=true \
-	ro.qualcomm.sensors.smd=true
 
 PRODUCT_COPY_FILES += \
 	device/lge/mako/configs/sensors/_hals.conf:system/vendor/etc/sensors/_hals.conf

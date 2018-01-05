@@ -1,0 +1,42 @@
+# OpenGL ES 3.0
+ro.opengles.version=196608
+
+# Disable EGL buffer_age extension support
+debug.hwui.use_buffer_age=false
+
+# XHDPI LCD density
+ro.sf.lcd_density=320
+
+# Up to 3 layers can go through overlays
+persist.hwc.mdpcomp.enable=true
+
+# Use SMD Bluetooth HCI transport
+ro.qualcomm.bt.hci_transport=smd
+
+# RIL
+rild.libpath=/vendor/lib/libril-qc-qmi-1.so
+telephony.lteOnCdmaDevice=0
+persist.audio.dualmic.config=endfire
+persist.audio.fluence.voicecall=true
+
+# RIL sends only one RIL_UNSOL_CALL_RING
+ro.telephony.call_ring.multiple=0
+
+# Don't power down SIM card when modem is sent to Low Power Mode
+persist.radio.apm_sim_not_pwdn=1
+
+# Enable DRM service
+drm.service.enabled=true
+
+# Wi-Fi
+wifi.interface=wlan0
+wifi.supplicant_scan_interval=15
+
+# Enable AAC 5.1 output
+media.aac_51_output_enabled=true
+
+# Don't hold wakelocks for periodic sensor reports
+ro.qc.sensors.wl_dis=true
+
+# Enable SMD
+ro.qualcomm.sensors.smd=true
