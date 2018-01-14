@@ -212,7 +212,8 @@ PRODUCT_PACKAGES += \
         libloc_core \
         libgps.utils \
         gps.msm8960 \
-        android.hardware.gnss@1.0-impl
+        android.hardware.gnss@1.0-impl \
+        android.hardware.gnss@1.0-service
 
 PRODUCT_PACKAGES += \
 	bdAddrLoader \
