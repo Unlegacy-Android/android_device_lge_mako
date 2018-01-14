@@ -8,6 +8,7 @@ genfscon sysfs /devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk            
 genfscon sysfs /devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/reset_count            u:object_r:sysfs_graphics:s0
 genfscon sysfs /devices/virtual/graphics/fb0                                     u:object_r:sysfs_graphics:s0
 genfscon sysfs /devices/virtual/graphics/fb1                                     u:object_r:sysfs_graphics:s0
+genfscon sysfs /devices/virtual/graphics/fb2                                     u:object_r:sysfs_graphics:s0
 
 # thermald
 genfscon sysfs /devices/virtual/thermal                                          u:object_r:sysfs_thermal:s0
