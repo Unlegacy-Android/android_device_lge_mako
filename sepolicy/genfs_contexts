@@ -2,6 +2,7 @@
 genfscon sysfs /module/pm_8x60/modes                                             u:object_r:sysfs_mpdecision:s0
 
 # graphics
+genfscon debugfs /kgsl/proc                                                      u:object_r:debugfs_kgsl:s0
 genfscon sysfs /devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk                 u:object_r:sysfs_graphics:s0
 genfscon sysfs /devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk             u:object_r:sysfs_graphics:s0
 genfscon sysfs /devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/reset_count            u:object_r:sysfs_graphics:s0
