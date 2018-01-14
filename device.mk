@@ -32,10 +32,11 @@ PRODUCT_PACKAGES := \
     wpa_supplicant \
     wpa_supplicant.conf
 
-# Lights
+# Lights HAL
 PRODUCT_PACKAGES += \
 	lights.msm8960 \
-	android.hardware.light@2.0-impl
+	android.hardware.light@2.0-impl \
+	android.hardware.light@2.0-service
 
 # Vibrator
 PRODUCT_PACKAGES += \
