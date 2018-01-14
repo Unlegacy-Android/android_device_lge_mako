@@ -22,3 +22,5 @@ type persist_wifi_file, file_type;
 type sysfs_graphics, fs_type, sysfs_type;
 type sysfs_mpdecision, fs_type, sysfs_type;
 type sysfs_soc, fs_type, sysfs_type;
+
+type debugfs_kgsl, debugfs_type, fs_type;
