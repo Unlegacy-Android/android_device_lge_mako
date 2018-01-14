@@ -233,10 +233,11 @@ PRODUCT_PACKAGES += \
 	android.hardware.drm@1.0-impl \
 	android.hardware.drm@1.0-service
 
-# Sensors
+# Sensors HAL
 PRODUCT_PACKAGES += \
 	sensors.msm8960 \
-	android.hardware.sensors@1.0-impl
+	android.hardware.sensors@1.0-impl \
+	android.hardware.sensors@1.0-service
 
 PRODUCT_COPY_FILES += \
 	device/lge/mako/configs/sensors/_hals.conf:system/vendor/etc/sensors/_hals.conf
