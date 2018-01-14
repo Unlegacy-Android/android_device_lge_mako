@@ -228,8 +228,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	android.hardware.power@1.0-service.qcom
 
+# DRM
 PRODUCT_PACKAGES += \
-	android.hardware.drm@1.0-impl
+	android.hardware.drm@1.0-impl \
+	android.hardware.drm@1.0-service
 
 # Sensors
 PRODUCT_PACKAGES += \
