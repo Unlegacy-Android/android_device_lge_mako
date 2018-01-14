@@ -173,6 +173,7 @@ PRODUCT_PACKAGES += \
 	audio.usb.default \
 	audio.r_submix.default \
 	android.hardware.audio@2.0-impl \
+	android.hardware.audio@2.0-service \
 	android.hardware.audio.effect@2.0-impl \
 	libaudio-resampler
 
