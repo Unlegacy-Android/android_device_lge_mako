@@ -1882,6 +1882,8 @@ status_t QCameraStream_Snapshot::receiveRawPicture(mm_camera_ch_data_buf_t* recv
     camera_data_callback           dataCb, jpgDataCb;
 
     ALOGD("%s: E ", __func__);
+    Mutex::Autolock lock(mStartCallbackLock);
+
     if(!mActive) {
         ALOGD("%s: Stop receiving raw pic before acquiring lock", __func__);
         return NO_ERROR;
@@ -2317,7 +2319,8 @@ status_t QCameraStream_Snapshot::start(void) {
 
     ALOGV("%s: E", __func__);
 
-    Mutex::Autolock lock(mStopCallbackLock);
+    Mutex::Autolock startLock(mStartCallbackLock);
+    Mutex::Autolock stopLock(mStopCallbackLock);
     mSnapshotDataCallingBack = 0;
     mFreeSnapshotBufAfterDataCb = 0;
     mHalCamCtrl->mSnapCbDisabled = false;

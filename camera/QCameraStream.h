@@ -139,6 +139,7 @@ public:
     int mCameraId;
     camera_mode_t myMode;
 
+    mutable Mutex mStartCallbackLock;
     mutable Mutex mStopCallbackLock;
     mutable Mutex mPreviewFrameLock;
 	int     mSnapshotDataCallingBack;
