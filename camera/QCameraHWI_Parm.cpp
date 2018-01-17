@@ -4009,12 +4009,12 @@ void QCameraHardwareInterface::initExifData(){
         ALOGE("%s: getExifModel failed", __func__);
     }
 
-    if(*mExifValues.dateTime) {
-        addExifTag(EXIFTAGID_EXIF_DATE_TIME_ORIGINAL, EXIF_ASCII,
-                20, 1, (void *)mExifValues.dateTime);
-        addExifTag(EXIFTAGID_EXIF_DATE_TIME_DIGITIZED, EXIF_ASCII,
-                20, 1, (void *)mExifValues.dateTime);
-    }
+    setExifTagsDateTime();
+    addExifTag(EXIFTAGID_EXIF_DATE_TIME_ORIGINAL, EXIF_ASCII,
+            20, 1, (void *)mExifValues.dateTime);
+    addExifTag(EXIFTAGID_EXIF_DATE_TIME_DIGITIZED, EXIF_ASCII,
+            20, 1, (void *)mExifValues.dateTime);
+
     addExifTag(EXIFTAGID_FOCAL_LENGTH, EXIF_RATIONAL, 1, 1, (void *)&(mExifValues.focalLength));
     addExifTag(EXIFTAGID_ISO_SPEED_RATING,EXIF_SHORT,1,1,(void *)&(mExifValues.isoSpeed));
 
@@ -4096,15 +4096,6 @@ void QCameraHardwareInterface::initExifData(){
 //Add all exif tags in this function
 void QCameraHardwareInterface::setExifTags()
 {
-    const char *str;
-
-    //set TimeStamp
-    str = mParameters.get(QCameraParameters::KEY_EXIF_DATETIME);
-    if(str != NULL) {
-        strncpy(mExifValues.dateTime, str, 19);
-        mExifValues.dateTime[19] = '\0';
-    }
-
     //Set focal length
     int focalLengthValue = (int) (mParameters.getFloat(
             QCameraParameters::KEY_FOCAL_LENGTH) * FOCAL_LENGTH_DECIMAL_PRECISION);
@@ -4139,25 +4130,38 @@ void QCameraHardwareInterface::setExifTags()
         memcpy(&mExifValues.exposure_time, &temp, sizeof(mExifValues.exposure_time));
         ALOGV(" The exposure value is %u", temp2);
     }
-    //get time and date from system
-    time_t rawtime;
-    struct tm * timeinfo;
-    time(&rawtime);
-    timeinfo = localtime (&rawtime);
-    //Write datetime according to EXIF Spec
-    //"YYYY:MM:DD HH:MM:SS" (20 chars including \0)
-    snprintf(mExifValues.dateTime, 20, "%04d:%02d:%02d %02d:%02d:%02d",
-            timeinfo->tm_year + 1900, timeinfo->tm_mon + 1,
-            timeinfo->tm_mday, timeinfo->tm_hour,
-            timeinfo->tm_min, timeinfo->tm_sec);
-    //set gps tags
-
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    snprintf(mExifValues.subsecTime, 7, "%06ld", tv.tv_usec);
 
     mExifValues.mWbMode = mParameters.getInt(QCameraParameters::KEY_WHITE_BALANCE);
+
+    setExifTagsDateTime();
     setExifTagsGPS();
+}
+
+void QCameraHardwareInterface::setExifTagsDateTime()
+{
+    struct timeval tv;
+    struct tm timeinfo_data;
+
+    int ret = gettimeofday(&tv, NULL);
+    if (ret == 0) {
+        struct tm *timeinfo = localtime_r(&tv.tv_sec, &timeinfo_data);
+        if (timeinfo != NULL) {
+            // Write datetime according to EXIF spec
+            // "YYYY:MM:DD HH:MM:SS" (20 chars including \0)
+            snprintf(mExifValues.dateTime, 20, "%04d:%02d:%02d %02d:%02d:%02d",
+                    timeinfo->tm_year + 1900, timeinfo->tm_mon + 1,
+                    timeinfo->tm_mday, timeinfo->tm_hour,
+                    timeinfo->tm_min, timeinfo->tm_sec);
+            // Write subsec according to EXIF spec
+            snprintf(mExifValues.subsecTime, 7, "%06ld", tv.tv_usec);
+        } else {
+            ALOGE("%s: localtime_r() error", __func__);
+        }
+    } else if (ret == -1) {
+        ALOGE("%s: gettimeofday() error: %s", __func__, strerror(errno));
+    } else {
+        ALOGE("%s: gettimeofday() unexpected return code: %d", __func__, ret);
+    }
 }
 
 void QCameraHardwareInterface::setExifTagsGPS()
