@@ -104,7 +104,9 @@ extern "C" {
 
 //Supported preview fps ranges should be added to this array in the form (minFps,maxFps)
 static  android::FPSRange FpsRangesSupported[] = {
-            android::FPSRange(MINIMUM_FPS*1000,MAXIMUM_FPS*1000)
+            android::FPSRange(24 * 1000, 24 * 1000),
+            android::FPSRange(MINIMUM_FPS * 1000, MAXIMUM_FPS * 1000),
+            android::FPSRange(30 * 1000, 30 * 1000),
         };
 #define FPS_RANGES_SUPPORTED_COUNT (sizeof(FpsRangesSupported)/sizeof(FpsRangesSupported[0]))
 
