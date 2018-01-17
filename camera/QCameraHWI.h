@@ -646,6 +646,7 @@ private:
     void setExifTags();
     void initExifData();
     void deinitExifData();
+    void setExifTagsDateTime();
     void setExifTagsGPS();
     exif_tags_info_t* getExifData(){ return mExifData; }
     int getExifTableNumEntries() { return mExifTableNumEntries; }
