@@ -216,13 +216,10 @@ void QCameraStream_record::releaseEncodeBuffer() {
       ALOGE("%s: Unmapping Video Data Failed", __func__);
 
     if (mHalCamCtrl->mStoreMetaDataInFrame) {
-      media_metadata_buffer *packet = (media_metadata_buffer *)
-          mHalCamCtrl->mRecordingMemory.metadata_memory[cnt]->data;
-
-      native_handle_t *nh = const_cast<native_handle_t *>(packet->meta_handle);
-      if (nh) {
-        native_handle_close(nh);
-        native_handle_delete(nh);
+      if (mNativeHandle[cnt] != NULL) {
+        native_handle_close(mNativeHandle[cnt]);
+        native_handle_delete(mNativeHandle[cnt]);
+        mNativeHandle[cnt] = NULL;
       }
       mHalCamCtrl->mRecordingMemory.metadata_memory[cnt]->release(
         mHalCamCtrl->mRecordingMemory.metadata_memory[cnt]);
@@ -472,23 +469,24 @@ status_t QCameraStream_record::initEncodeBuffers()
 		    mHalCamCtrl->mRecordingMemory.size, 1, mHalCamCtrl->mCallbackCookie);
 
       if (mHalCamCtrl->mStoreMetaDataInFrame) {
+        // create native handle
+        mNativeHandle[cnt] = native_handle_create(1, 2); // 1 fd, 1 offset and 1 size
+        mNativeHandle[cnt]->data[0] = mHalCamCtrl->mRecordingMemory.fd[cnt];
+        mNativeHandle[cnt]->data[1] = 0;
+        mNativeHandle[cnt]->data[2] = mHalCamCtrl->mRecordingMemory.size;
+
+        // assign native handle
         mHalCamCtrl->mRecordingMemory.metadata_memory[cnt] =
-          mHalCamCtrl->mGetMemory(-1,
-          sizeof(media_metadata_buffer), 1, mHalCamCtrl->mCallbackCookie);
+            mHalCamCtrl->mGetMemory(-1, sizeof(media_metadata_buffer), 1,
+            mHalCamCtrl->mCallbackCookie);
         media_metadata_buffer *packet = (media_metadata_buffer *)
-          mHalCamCtrl->mRecordingMemory.metadata_memory[cnt]->data;
-        if (!mNativeHandle[cnt])
-          mNativeHandle[cnt] = native_handle_create(1, 2); // 1 fd, 1 offset and 1 size
+            mHalCamCtrl->mRecordingMemory.metadata_memory[cnt]->data;
         packet->meta_handle = mNativeHandle[cnt];
 #ifdef USE_NATIVE_HANDLE_SOURCE
         packet->buffer_type = kMetadataBufferTypeNativeHandleSource;
 #else
         packet->buffer_type = kMetadataBufferTypeCameraSource;
 #endif
-        native_handle_t *nh = mNativeHandle[cnt];
-        nh->data[0] = mHalCamCtrl->mRecordingMemory.fd[cnt];
-        nh->data[1] = 0;
-        nh->data[2] = mHalCamCtrl->mRecordingMemory.size;
       }
     	recordframes[cnt].fd = mHalCamCtrl->mRecordingMemory.fd[cnt];
     	recordframes[cnt].buffer = (uint32_t)mHalCamCtrl->mRecordingMemory.camera_memory[cnt]->data;
