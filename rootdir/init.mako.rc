@@ -192,6 +192,11 @@ on post-fs-data
     # adjust vibrator amplitude
     write /sys/class/timed_output/vibrator/amp 70
 
+on zygote-start
+    mkdir /data/vendor/wifi 0770 wifi wifi
+    mkdir /data/vendor/wifi/wpa 0770 wifi wifi
+    mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
+
 on property:sys.boot_completed=1
     # IO
     write /sys/block/mmcblk0/queue/scheduler bfq
@@ -239,7 +244,7 @@ service sensors /vendor/bin/sensors.qcom
     group root radio system wakelock
 
 service wpa_supplicant /system/vendor/bin/hw/wpa_supplicant \
-    -O/data/misc/wifi/sockets -puse_p2p_group_interface=1 \
+    -O/data/vendor/wifi/wpa/sockets -puse_p2p_group_interface=1 \
     -g@android:wpa_wlan0
 #   we will start as root and wpa_supplicant will switch to user wifi
 #   after setting up the capabilities required for WEXT
