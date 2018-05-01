@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64167ea8_004b9ee0",
+        "filename": "manifest.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2018-05-01T13:49:02Z",
+      "side": 1,
+      "message": "Are you sure that this is fine without having a vibrator HAL?",
+      "revId": "d5cbfd18b77a5c037bb05f4ed5a7b7144cbed487",
+      "serverId": "d5e41ece-075f-43fb-b5a6-48951f3d7b1d",
+      "unresolved": false
+    }
+  ]
+}
