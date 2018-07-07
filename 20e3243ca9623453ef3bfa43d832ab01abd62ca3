@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "952b0fda_a3b8700f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2018-07-07T14:33:35Z",
+      "side": 1,
+      "message": "I\u0027d prefer something like:\ninit: factor out power init to a separate file",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 44
+      },
+      "revId": "20e3243ca9623453ef3bfa43d832ab01abd62ca3",
+      "serverId": "d5e41ece-075f-43fb-b5a6-48951f3d7b1d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5094028c_53d76165",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2018-07-07T14:33:35Z",
+      "side": 1,
+      "message": "Not true anymore :p",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 32
+      },
+      "revId": "20e3243ca9623453ef3bfa43d832ab01abd62ca3",
+      "serverId": "d5e41ece-075f-43fb-b5a6-48951f3d7b1d",
+      "unresolved": false
+    }
+  ]
+}
