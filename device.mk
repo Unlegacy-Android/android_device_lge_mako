@@ -83,6 +83,7 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
 	device/lge/mako/rootdir/init.mako.rc:root/init.mako.rc \
+	device/lge/mako/rootdir/init.mako.power.rc:root/init.mako.power.rc \
 	device/lge/mako/rootdir/init.mako.usb.rc:root/init.mako.usb.rc \
 	device/lge/mako/rootdir/fstab.mako:root/fstab.mako \
 	device/lge/mako/rootdir/ueventd.mako.rc:root/ueventd.mako.rc \
