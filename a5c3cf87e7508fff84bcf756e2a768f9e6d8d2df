@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b56576f_a6951148",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000223
+      },
+      "writtenOn": "2018-07-07T13:01:49Z",
+      "side": 1,
+      "message": "separate power init",
+      "range": {
+        "startLine": 7,
+        "startChar": 9,
+        "endLine": 7,
+        "endChar": 49
+      },
+      "revId": "a5c3cf87e7508fff84bcf756e2a768f9e6d8d2df",
+      "serverId": "d5e41ece-075f-43fb-b5a6-48951f3d7b1d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "abbe84e6_d79ad2c8",
+        "filename": "rootdir/init.mako.power.rc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000223
+      },
+      "writtenOn": "2018-07-07T13:01:49Z",
+      "side": 1,
+      "message": "add Copyright 2018 Unlegacy Android Project",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 1
+      },
+      "revId": "a5c3cf87e7508fff84bcf756e2a768f9e6d8d2df",
+      "serverId": "d5e41ece-075f-43fb-b5a6-48951f3d7b1d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c8669b95_1a344b5b",
+        "filename": "rootdir/init.mako.power.rc",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000223
+      },
+      "writtenOn": "2018-07-07T13:01:49Z",
+      "side": 1,
+      "message": "add new line in the end",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 30
+      },
+      "revId": "a5c3cf87e7508fff84bcf756e2a768f9e6d8d2df",
+      "serverId": "d5e41ece-075f-43fb-b5a6-48951f3d7b1d",
+      "unresolved": false
+    }
+  ]
+}
