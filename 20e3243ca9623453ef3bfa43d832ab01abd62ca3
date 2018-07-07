@@ -45,6 +45,30 @@
       "revId": "20e3243ca9623453ef3bfa43d832ab01abd62ca3",
       "serverId": "d5e41ece-075f-43fb-b5a6-48951f3d7b1d",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b4fd704_986c7430",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000223
+      },
+      "writtenOn": "2018-07-07T14:40:48Z",
+      "side": 1,
+      "message": "why? thermal services may be moved as well, or you r making device independent init?",
+      "parentUuid": "5094028c_53d76165",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 32
+      },
+      "revId": "20e3243ca9623453ef3bfa43d832ab01abd62ca3",
+      "serverId": "d5e41ece-075f-43fb-b5a6-48951f3d7b1d",
+      "unresolved": false
     }
   ]
 }
