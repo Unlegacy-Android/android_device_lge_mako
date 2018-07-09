@@ -211,7 +211,7 @@ PRODUCT_PACKAGES += \
 	p2p_supplicant_overlay.conf
 
 PRODUCT_PACKAGES += \
-	power.mako
+	power.msm8960
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 	rild.libpath=/vendor/lib/libril-qc-qmi-1.so
