@@ -197,6 +197,9 @@ on zygote-start
     mkdir /data/vendor/wifi/wpa 0770 wifi wifi
     mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
 
+    mkdir /data/misc/location 0770 gps gps
+    mkdir /data/misc/location/gpsone_d 0770 system gps
+
 on property:sys.boot_completed=1
     # IO
     write /sys/block/mmcblk0/queue/scheduler bfq
