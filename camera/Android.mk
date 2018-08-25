@@ -48,8 +48,8 @@ LOCAL_SRC_FILES := \
 LOCAL_C_INCLUDES += \
     $(LOCAL_PATH)/mm-camera-interface \
     hardware/qcom/media/msm8960/mm-core/inc \
-    hardware/qcom/display/msm8960/libgralloc \
-    hardware/qcom/display/msm8960/libgenlock \
+    hardware/qcom/display/libgralloc \
+    hardware/qcom/display/libgenlock \
     hardware/qcom/media/msm8960/libstagefrighthw \
     frameworks/native/include/media/hardware
 
