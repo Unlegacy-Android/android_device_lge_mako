@@ -201,6 +201,9 @@ PRODUCT_PACKAGES += \
 	android.hardware.camera.provider@2.4-service \
 	camera.device@1.0-impl
 
+PRODUCT_COPY_FILES += \
+	device/lge/mako/configs/external_camera_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/external_camera_config.xml
+
 PRODUCT_PACKAGES += \
         libmm-omxcore \
 	libdivxdrmdecrypt \
