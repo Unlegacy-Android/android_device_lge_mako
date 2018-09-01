@@ -18,6 +18,7 @@
 #include <hardware/sensors.h>
 #include <string>
 #include <dlfcn.h>
+#include <errno.h>
 
 // The "real" sensor lib to wrap around
 #define SENSOR_LIB "sensors.mako.so"
