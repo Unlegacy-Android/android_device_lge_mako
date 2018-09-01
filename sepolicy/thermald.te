@@ -6,7 +6,7 @@ type thermald_exec, exec_type, file_type;
 init_daemon_domain(thermald)
 
 # DAC overrides
-allow thermald self:capability dac_override;
+#allow thermald self:capability dac_override;
 
 allow thermald self:socket create_socket_perms;
 allowxperm thermald self:socket ioctl msm_sock_ipc_ioctls;
