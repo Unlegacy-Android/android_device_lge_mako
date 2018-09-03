@@ -102,7 +102,6 @@
 /system/vendor/bin/netmgrd             u:object_r:netmgrd_exec:s0
 /system/vendor/bin/qmuxd               u:object_r:qmux_exec:s0
 /system/vendor/bin/qseecomd            u:object_r:tee_exec:s0
-/system/vendor/bin/rmt_storage         u:object_r:rmt_exec:s0
 /system/vendor/bin/sensors\.qcom       u:object_r:sensors_exec:s0
 /system/vendor/bin/thermald            u:object_r:thermald_exec:s0
 
