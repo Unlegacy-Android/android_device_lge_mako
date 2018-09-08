@@ -3,9 +3,8 @@ type qmuxd_socket, file_type;
 type sensors_socket, file_type;
 type camera_socket, file_type;
 
+type kickstart_vendor_data_file, file_type, data_file_type;
 type sensors_vendor_data_file, file_type, data_file_type;
-
-type kickstart_data_file, file_type, data_file_type;
 
 type mpdecision_socket, file_type;
 

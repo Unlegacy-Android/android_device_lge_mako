@@ -175,7 +175,7 @@ on post-fs-data
     chmod 2770 /data/audio
 
     # kickstart
-    mkdir /data/qcks 0770 system system
+    mkdir /data/vendor/qcks 0770 system system
     chown system /dev/block/platform/msm_sdcc.1/by-name
 
     setprop vold.post_fs_data_done 1
