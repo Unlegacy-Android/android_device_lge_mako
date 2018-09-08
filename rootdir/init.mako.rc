@@ -63,6 +63,9 @@ on boot
     # Allow QMUX daemon to assign port open wait time
     chown radio radio /sys/devices/virtual/hsicctl/hsicctl0/modem_wait
 
+    # Create QCamera daemon socket area
+    mkdir /dev/socket/qcamera 2770 camera camera
+
     #port-bridge
     chmod 0660 /dev/smd0
     chown system system /dev/smd0

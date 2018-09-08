@@ -5,4 +5,6 @@ allow hal_camera_default vendor_file:file execmod;
 
 allow hal_camera_default hal_graphics_mapper_hwservice:hwservice_manager find;
 
+allow hal_camera_default camera_socket:dir search;
+
 unix_socket_send(hal_camera_default, camera, camera)
