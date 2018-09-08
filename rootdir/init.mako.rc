@@ -24,6 +24,8 @@ on early-init
     write /sys/block/mmcblk0/bdi/read_ahead_kb 512
     write /sys/block/mmcblk0/queue/scheduler noop
 
+    mount_all ./fstab.mako --early
+
 on init
     # Set permissions for persist partition
     mkdir /persist 0771 system system
@@ -40,7 +42,7 @@ on init
     setprop persist.radio.custom_ecc_hard "911,*911,#911,112,999,000,08,118,120,122,110,119,995,111,113,125,127,133"
 
 on fs
-    mount_all ./fstab.mako
+    mount_all ./fstab.mako --late
     restorecon_recursive /persist
 
 on early-boot
