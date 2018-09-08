@@ -66,6 +66,9 @@ on boot
     # Create QCamera daemon socket area
     mkdir /dev/socket/qcamera 2770 camera camera
 
+    # Create sensors daemon socket area
+    mkdir /dev/socket/sensors 2770 system system
+
     #port-bridge
     chmod 0660 /dev/smd0
     chown system system /dev/smd0
