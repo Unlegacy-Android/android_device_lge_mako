@@ -87,7 +87,7 @@
 /dev/block/platform/msm_sdcc\.1/by-name/persist     u:object_r:persist_block_device:s0
 
 /dev/socket/qcamera(/.*)?              u:object_r:camera_socket:s0
-/data/app/sensor_ctl_socket            u:object_r:sensors_socket:s0
+/dev/socket/sensors(/.*)?              u:object_r:sensors_socket:s0
 
 /data/fdAlbum                          u:object_r:camera_data_file:s0
 /data/misc/playready(/.*)?             u:object_r:drm_data_file:s0
