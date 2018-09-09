@@ -28,4 +28,7 @@ genfscon sysfs /devices/platform/bq51051b_wlc/power_supply                      
 genfscon sysfs /devices/platform/msm_ssbi.0/pm8921-core/pm8921-charger/power_supply u:object_r:sysfs_batteryinfo:s0
 genfscon sysfs /devices/virtual/power_supply                                        u:object_r:sysfs_batteryinfo:s0
 
+# Networking
+genfscon sysfs /devices/platform/msm_hsic_host/usb1/1-1/1-1:1.5/net/rmnet_usb0/mtu  u:object_r:sysfs_net:s0
+
 genfscon sysfs /devices/system/soc/soc0                                          u:object_r:sysfs_soc:s0
