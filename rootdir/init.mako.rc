@@ -60,6 +60,9 @@ on boot
     mkdir /dev/socket/qmux_gps 0770 gps gps
     chmod 2770 /dev/socket/qmux_gps
 
+    # Allow thermald to modify the current LCD brightness
+    chmod 664 /sys/class/leds/lcd-backlight/brightness
+
     # Allow QMUX daemon to assign port open wait time
     chown radio radio /sys/devices/virtual/hsicctl/hsicctl0/modem_wait
 
@@ -265,6 +268,7 @@ service charger /charger
 
 service thermald /vendor/bin/thermald
     class main
+    user root
     group radio system
 
 service mpdecision /vendor/bin/mpdecision --no_sleep --avg_comp
