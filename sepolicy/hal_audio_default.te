@@ -9,3 +9,6 @@ allowxperm hal_audio_default self:socket ioctl msm_sock_ipc_ioctls;
 
 allow hal_audio_default audio_data_file:dir w_dir_perms;
 allow hal_audio_default audio_data_file:file create_file_perms;
+
+# Allow accessing power HAL
+allow hal_audio_default hal_power_hwservice:hwservice_manager find;
