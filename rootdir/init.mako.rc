@@ -265,6 +265,7 @@ service charger /charger
 
 service thermald /vendor/bin/thermald
     class main
+    user root
     group radio system
 
 service mpdecision /vendor/bin/mpdecision --no_sleep --avg_comp
