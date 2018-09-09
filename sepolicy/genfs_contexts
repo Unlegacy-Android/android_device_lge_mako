@@ -23,4 +23,9 @@ genfscon sysfs /module/pm8921_charger/parameters/thermal_mitigation             
 genfscon sysfs /devices/platform/msm_fb.525825/leds/lcd-backlight                u:object_r:sysfs_leds:s0
 genfscon sysfs /devices/platform/msm_ssbi.0/pm8921-core/pm8xxx-led               u:object_r:sysfs_leds:s0
 
+# Power supplies
+genfscon sysfs /devices/platform/bq51051b_wlc/power_supply                          u:object_r:sysfs_batteryinfo:s0
+genfscon sysfs /devices/platform/msm_ssbi.0/pm8921-core/pm8921-charger/power_supply u:object_r:sysfs_batteryinfo:s0
+genfscon sysfs /devices/virtual/power_supply                                        u:object_r:sysfs_batteryinfo:s0
+
 genfscon sysfs /devices/system/soc/soc0                                          u:object_r:sysfs_soc:s0
