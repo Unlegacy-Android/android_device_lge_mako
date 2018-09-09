@@ -18,11 +18,16 @@ type persist_drm_file, file_type;
 type persist_sensors_file, file_type;
 type persist_wifi_file, file_type;
 
+type proc_cpu_alignment, fs_type, proc_type;
 type proc_last_kmsg, fs_type, proc_type;
+type proc_slabinfo, fs_type, proc_type;
 type proc_wakelocks, fs_type, proc_type;
 
+type sysfs_block_iosched, fs_type, sysfs_type;
+type sysfs_block_read_ahead_kb, fs_type, sysfs_type;
 type sysfs_graphics, fs_type, sysfs_type;
 type sysfs_mpdecision, fs_type, sysfs_type;
+type sysfs_msm_subsys, fs_type, sysfs_type;
 type sysfs_soc, fs_type, sysfs_type;
 
 type debugfs_kgsl, debugfs_type, fs_type;
