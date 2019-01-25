@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e233d9f_973c00e3",
+        "filename": "sepolicy/file_contexts",
+        "patchSetId": 10
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2019-01-25T08:24:37Z",
+      "side": 1,
+      "message": "I forgot, does AOSP have some sort of sepolicy snippet feature, like the RC stuff?",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 103
+      },
+      "revId": "e267cf8b6f16a9be29e8ca77fb20310cc4d37a38",
+      "serverId": "d5e41ece-075f-43fb-b5a6-48951f3d7b1d",
+      "unresolved": true
+    }
+  ]
+}
